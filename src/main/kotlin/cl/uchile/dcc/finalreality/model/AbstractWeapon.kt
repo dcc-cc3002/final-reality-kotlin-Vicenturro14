@@ -11,42 +11,29 @@ import java.util.Objects
  *     The base damage done by the weapon.
  * @property weight Int
  *     The weight of the weapon.
- * @property type WeaponType
- *     The type of the weapon.
  *
- * @constructor Creates a weapon with a name, a base damage, speed, and it's type.
+ * @constructor Creates a weapon with a name, a base damage and speed.
  *
  * @author <a href="https://www.github.com/r8vnhill">R8V</a>
  * @author ~Your name~
  */
-class Weapon(
+class AbstractWeapon(
     val name: String,
     val damage: Int,
-    val weight: Int,
-    val type: WeaponType
+    val weight: Int
 ) {
     override fun equals(other: Any?) = when {
         this === other                 -> true
-        other !is Weapon               -> false
+        other !is AbstractWeapon       -> false
         hashCode() != other.hashCode() -> false
         name != other.name             -> false
         damage != other.damage         -> false
         weight != other.weight         -> false
-        type != other.type             -> false
         else                           -> true
     }
 
-    override fun hashCode() = Objects.hash(Weapon::class, name, damage, weight, type)
+    override fun hashCode() = Objects.hash(this::class, name, damage, weight)
 
-    override fun toString() = "Weapon { name: $name, damage: $damage, weight: $weight, type: $type)"
+    override fun toString() = "Weapon { name: $name, damage: $damage, weight: $weight)"
 }
 
-/**
- * Enumeration of all the weapon types.
- *
- * @author <a href="https://www.github.com/r8vnhill">R8V</a>
- * @author ~Your name~
- */
-enum class WeaponType {
-    SWORD, AXE, KNIFE, STAFF, BOW
-}
