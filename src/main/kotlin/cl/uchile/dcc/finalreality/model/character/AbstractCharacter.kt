@@ -37,26 +37,6 @@ abstract class AbstractCharacter(
         }
     val defense = Require.Stat(defense, "Defense") atLeast 0
 
-    override fun waitTurn() {
-        scheduledExecutor = Executors.newSingleThreadScheduledExecutor()
-        when (this) {
-            is PlayerCharacter -> {
-                scheduledExecutor.schedule(
-                    /* command = */ ::addToQueue,
-                    /* delay = */ (this.equippedWeapon.weight / 10).toLong(),
-                    /* unit = */ TimeUnit.SECONDS
-                )
-            }
-
-            is Enemy -> {
-                scheduledExecutor.schedule(
-                    /* command = */ ::addToQueue,
-                    /* delay = */ (this.weight / 10).toLong(),
-                    /* unit = */ TimeUnit.SECONDS
-                )
-            }
-        }
-    }
 
     /**
      * Adds this character to the turns queue.

@@ -11,6 +11,9 @@ import cl.uchile.dcc.finalreality.model.weapons.Weapon
 import cl.uchile.dcc.finalreality.model.character.AbstractCharacter
 import cl.uchile.dcc.finalreality.model.character.GameCharacter
 import java.util.concurrent.BlockingQueue
+import java.util.concurrent.Executors
+import java.util.concurrent.ScheduledExecutorService
+import java.util.concurrent.TimeUnit
 
 /**
  * A character controlled by the user.
@@ -49,10 +52,19 @@ abstract class AbstractPlayerCharacter(
 ) : AbstractCharacter(name, maxHp, defense, turnsQueue), PlayerCharacter {
 
   private lateinit var _equippedWeapon: Weapon
+  private lateinit var scheduledExecutor: ScheduledExecutorService
   override val equippedWeapon: Weapon
     get() = _equippedWeapon
 
   override fun equip(weapon: Weapon) {
     _equippedWeapon = weapon
   }
+
+  override fun waitTurn() {
+    scheduledExecutor = Executors.newSingleThreadScheduledExecutor()
+    scheduledExecutor.schedule(
+      /* command = */ ::addToQueue,
+      /* delay = */ (this.equippedWeapon.weight / 10).toLong(),
+      /* unit = */ TimeUnit.SECONDS
+    )
 }
