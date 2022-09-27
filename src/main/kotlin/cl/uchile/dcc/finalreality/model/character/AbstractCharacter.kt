@@ -23,19 +23,19 @@ import java.util.concurrent.TimeUnit
  * @author ~Your name~
  */
 abstract class AbstractCharacter(
-    override val name: String,
+    val name: String,
     maxHp: Int,
     defense: Int,
     private val turnsQueue: BlockingQueue<GameCharacter>,
 ) : GameCharacter {
 
     private lateinit var scheduledExecutor: ScheduledExecutorService
-    override val maxHp = Require.Stat(maxHp, "Max Hp") atLeast 1
-    override var currentHp = maxHp
+    val maxHp = Require.Stat(maxHp, "Max Hp") atLeast 1
+    var currentHp = maxHp
         set(value) {
             field = Require.Stat(value, "Current Hp") inRange 0..maxHp
         }
-    override val defense = Require.Stat(defense, "Defense") atLeast 0
+    val defense = Require.Stat(defense, "Defense") atLeast 0
 
     override fun waitTurn() {
         scheduledExecutor = Executors.newSingleThreadScheduledExecutor()

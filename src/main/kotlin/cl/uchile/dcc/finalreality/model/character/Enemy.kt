@@ -24,7 +24,8 @@ class Enemy(
     weight: Int,
     maxHp: Int,
     defense: Int,
-    turnsQueue: BlockingQueue<GameCharacter>
+    turnsQueue: BlockingQueue<GameCharacter>,
+    val attack: Int
 ) : AbstractCharacter(name, maxHp, defense, turnsQueue) {
     val weight = Require.Stat(weight, "Weight") atLeast 1
 
@@ -36,6 +37,7 @@ class Enemy(
         weight != other.weight         -> false
         maxHp != other.maxHp           -> false
         defense != other.defense       -> false
+        attack != other.attack         -> false
         else                           -> true
     }
 
