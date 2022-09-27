@@ -35,5 +35,9 @@ abstract class AbstractWeapon(
     override fun hashCode() = Objects.hash(this::class, name, damage, weight)
 
     override fun toString() = "Weapon { name: $name, damage: $damage, weight: $weight)"
+
+    override fun giveWeight(): Int {
+        return this.weight
+    }
 }
 

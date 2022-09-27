@@ -18,13 +18,10 @@ import java.util.concurrent.TimeUnit
 /**
  * A character controlled by the user.
  *
- * @property equippedWeapon
- *    the weapon that the character is currently using
  * @author <a href="https://www.github.com/r8vnhill">R8V</a>
  * @author ~Your name~
  */
 interface PlayerCharacter {
-  val equippedWeapon: Weapon
 
   /**
    * Equips a weapon to the character.
@@ -32,39 +29,3 @@ interface PlayerCharacter {
   fun equip(weapon: Weapon)
 }
 
-/**
- * A class that holds all the information of a player-controlled character in the game.
- *
- * @param name        the character's name
- * @param maxHp       the character's maximum health points
- * @param defense     the character's defense
- * @param turnsQueue  the queue with the characters waiting for their turn
- * @constructor Creates a new playable character.
- *
- * @author <a href="https://www.github.com/r8vnhill">R8V</a>
- * @author ~Your name~
- */
-abstract class AbstractPlayerCharacter(
-  name: String,
-  maxHp: Int,
-  defense: Int,
-  turnsQueue: BlockingQueue<GameCharacter>
-) : AbstractCharacter(name, maxHp, defense, turnsQueue), PlayerCharacter {
-
-  private lateinit var _equippedWeapon: Weapon
-  private lateinit var scheduledExecutor: ScheduledExecutorService
-  override val equippedWeapon: Weapon
-    get() = _equippedWeapon
-
-  override fun equip(weapon: Weapon) {
-    _equippedWeapon = weapon
-  }
-
-  override fun waitTurn() {
-    scheduledExecutor = Executors.newSingleThreadScheduledExecutor()
-    scheduledExecutor.schedule(
-      /* command = */ ::addToQueue,
-      /* delay = */ (this.equippedWeapon.weight / 10).toLong(),
-      /* unit = */ TimeUnit.SECONDS
-    )
-}
