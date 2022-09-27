@@ -21,7 +21,7 @@ class AbstractWeapon(
     val name: String,
     val damage: Int,
     val weight: Int
-) {
+) : Weapon{
     override fun equals(other: Any?) = when {
         this === other                 -> true
         other !is AbstractWeapon       -> false
