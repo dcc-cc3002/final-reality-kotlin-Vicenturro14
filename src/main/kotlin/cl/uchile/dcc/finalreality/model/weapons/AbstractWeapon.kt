@@ -24,7 +24,7 @@ abstract class AbstractWeapon(
 ) : Weapon {
     override fun equals(other: Any?) = when {
         this === other                 -> true
-        other !is AbstractWeapon -> false
+        other !is AbstractWeapon       -> false
         hashCode() != other.hashCode() -> false
         name != other.name             -> false
         damage != other.damage         -> false
