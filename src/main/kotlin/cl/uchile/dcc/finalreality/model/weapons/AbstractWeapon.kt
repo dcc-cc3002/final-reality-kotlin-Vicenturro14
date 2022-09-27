@@ -1,4 +1,4 @@
-package cl.uchile.dcc.finalreality.model
+package cl.uchile.dcc.finalreality.model.weapons
 
 import java.util.Objects
 
@@ -17,14 +17,14 @@ import java.util.Objects
  * @author <a href="https://www.github.com/r8vnhill">R8V</a>
  * @author ~Your name~
  */
-class AbstractWeapon(
+abstract class AbstractWeapon(
     val name: String,
     val damage: Int,
     val weight: Int
-) : Weapon{
+) : Weapon {
     override fun equals(other: Any?) = when {
         this === other                 -> true
-        other !is AbstractWeapon       -> false
+        other !is AbstractWeapon -> false
         hashCode() != other.hashCode() -> false
         name != other.name             -> false
         damage != other.damage         -> false
