@@ -61,7 +61,7 @@ abstract class AbstractCharacter(
     /**
      * Adds this character to the turns queue.
      */
-    private fun addToQueue() {
+    protected fun addToQueue() {
         turnsQueue.put(this)
         scheduledExecutor.shutdown()
     }
