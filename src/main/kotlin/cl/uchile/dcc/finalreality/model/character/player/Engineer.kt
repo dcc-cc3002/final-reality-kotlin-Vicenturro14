@@ -27,10 +27,11 @@ import java.util.concurrent.BlockingQueue
  * @author ~Your name~
  */
 class Engineer(
-    name: String, maxHp: Int, defense: Int,
+    name: String,
+    maxHp: Int,
+    defense: Int,
     turnsQueue: BlockingQueue<GameCharacter>
-) :
-    AbstractPlayerCharacter(name, maxHp, defense, turnsQueue) {
+) : AbstractPlayerCharacter(name, maxHp, defense, turnsQueue) {
 
     override fun equals(other: Any?) = when {
         this === other                 -> true
@@ -43,11 +44,12 @@ class Engineer(
     }
 
     override fun hashCode() =
-        Objects.hash(Engineer::class, name, maxHp, defense)
+        Objects.hash(this::class, name, maxHp, defense)
 
-    override fun toString() = "Engineer { " +
-      "name: '$name', " +
-      "maxHp: $maxHp, " +
-      "defense: $defense " +
-      "}"
+    override fun toString() = "Engineer(" +
+        "name = '$name', " +
+        "maxHp = $maxHp, " +
+        "currentHp = $currentHp, " +
+        "defense = $defense" +
+        ")"
 }

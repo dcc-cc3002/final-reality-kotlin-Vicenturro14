@@ -25,8 +25,12 @@ import java.util.concurrent.BlockingQueue
  * @author <a href="https://www.github.com/r8vnhill">R8V</a>
  * @author ~Your name~
  */
-class Thief(name: String, maxHp: Int, defense: Int, turnsQueue: BlockingQueue<GameCharacter>) :
-  AbstractPlayerCharacter(name, maxHp, defense, turnsQueue) {
+class Thief(
+    name: String,
+    maxHp: Int,
+    defense: Int,
+    turnsQueue: BlockingQueue<GameCharacter>
+) : AbstractPlayerCharacter(name, maxHp, defense, turnsQueue) {
 
     override fun equals(other: Any?) = when {
         this === other                 -> true
@@ -38,8 +42,12 @@ class Thief(name: String, maxHp: Int, defense: Int, turnsQueue: BlockingQueue<Ga
         else                           -> true
     }
 
-    override fun hashCode() = Objects.hash(Thief::class, name, maxHp, defense)
+    override fun hashCode() = Objects.hash(this::class, name, maxHp, defense)
 
-    override fun toString() =
-      "Thief{maxHp=$maxHp, currentHp=$currentHp, defense=$defense, name='$name'}"
+    override fun toString() = "Thief(" +
+        "name='$name', " +
+        "maxHp=$maxHp, " +
+        "currentHp=$currentHp, " +
+        "defense=$defense" +
+        ")"
 }

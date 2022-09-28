@@ -17,17 +17,4 @@ abstract class AbstractMagicPlayerCharacter(
         set(value) {
             field = Require.Stat(value, "Current MP") inRange 0..maxMp
         }
-
-    override fun equals(other: Any?) = when {
-        this === other                 -> true
-        other !is WhiteMage            -> false
-        hashCode() != other.hashCode() -> false
-        name != other.name             -> false
-        maxHp != other.maxHp           -> false
-        maxMp != other.maxMp           -> false
-        defense != other.defense       -> false
-        else                           -> true
-    }
-
-    override fun hashCode() = Objects.hash(this::class, name, maxHp, maxMp, defense)
 }

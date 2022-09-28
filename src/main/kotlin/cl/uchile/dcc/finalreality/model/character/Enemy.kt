@@ -47,6 +47,15 @@ class Enemy(
 
     override fun hashCode() = Objects.hash(Enemy::class, name, weight, maxHp, defense, attack)
 
+    override fun toString() = "Enemy(" +
+        "name = '$name' " +
+        "weight = $weight, " +
+        "maxHp = $maxHp, " +
+        "currentHp = $currentHp, " +
+        "defense = $defense, " +
+        "attack = $attack" +
+        ")"
+
     override fun waitTurn() {
         scheduledExecutor = Executors.newSingleThreadScheduledExecutor()
         scheduledExecutor.schedule(
