@@ -7,9 +7,7 @@
  */
 package cl.uchile.dcc.finalreality.model.character.player
 
-import cl.uchile.dcc.finalreality.exceptions.Require
 import cl.uchile.dcc.finalreality.model.character.GameCharacter
-import java.util.*
 import java.util.concurrent.BlockingQueue
 
 /**
@@ -34,27 +32,14 @@ class WhiteMage(
   maxMp: Int,
   defense: Int,
   turnsQueue: BlockingQueue<GameCharacter>
-) : AbstractPlayerCharacter(name, maxHp, defense, turnsQueue) {
-    val maxMp = Require.Stat(maxMp, "Max MP") atLeast 0
-    var currentMp: Int = maxMp
-        set(value) {
-            field = Require.Stat(value, "Current MP") inRange 0..maxMp
-        }
+) : AbstractMagicPlayerCharacter(name, maxHp, maxMp, defense, turnsQueue) {
 
-    override fun equals(other: Any?) = when {
-        this === other                 -> true
-        other !is WhiteMage            -> false
-        hashCode() != other.hashCode() -> false
-        name != other.name             -> false
-        maxHp != other.maxHp           -> false
-        maxMp != other.maxMp           -> false
-        defense != other.defense       -> false
-        else                           -> true
-    }
-
-    override fun hashCode() = Objects.hash(WhiteMage::class, name, maxHp, maxMp, defense)
-
-    override fun toString() =
-      "WhiteMage(currentMp=$currentMp, maxMp=$maxMp, maxHp=$maxHp, currentHp=$currentHp, " +
-        "defense=$defense, name='$name')"
+    override fun toString() = "WhiteMage(" +
+        "name = '$name', " +
+        "maxHp = $maxHp, " +
+        "maxMp = $maxMp, " +
+        "currentHp = $currentHp, " +
+        "currentMp = $currentMp, " +
+        "defense = $defense" +
+        ")"
 }
