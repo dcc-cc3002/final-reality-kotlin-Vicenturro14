@@ -1,7 +1,5 @@
 package cl.uchile.dcc.finalreality.model.weapons
 
-import java.util.Objects
-
 /**
  * A class that holds all the information of a weapon.
  *
@@ -22,19 +20,6 @@ abstract class AbstractWeapon(
     val damage: Int,
     val weight: Int
 ) : Weapon {
-    override fun equals(other: Any?) = when {
-        this === other                 -> true
-        other !is AbstractWeapon       -> false
-        hashCode() != other.hashCode() -> false
-        name != other.name             -> false
-        damage != other.damage         -> false
-        weight != other.weight         -> false
-        else                           -> true
-    }
-
-    override fun hashCode() = Objects.hash(this::class, name, damage, weight)
-
-    override fun toString() = "Weapon { name: $name, damage: $damage, weight: $weight)"
 
     override fun giveWeight(): Int {
         return this.weight
