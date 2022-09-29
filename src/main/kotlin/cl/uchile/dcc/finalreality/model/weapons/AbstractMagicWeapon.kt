@@ -5,5 +5,5 @@ abstract class AbstractMagicWeapon(
     damage: Int,
     weight: Int,
     val magicDamage: Int
-) : AbstractWeapon(name, damage, weight){
+) : AbstractWeapon(name, damage, weight), MagicWeapon{
 }

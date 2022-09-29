@@ -8,12 +8,6 @@
 package cl.uchile.dcc.finalreality.model.character.player
 
 import cl.uchile.dcc.finalreality.model.weapons.Weapon
-import cl.uchile.dcc.finalreality.model.character.AbstractCharacter
-import cl.uchile.dcc.finalreality.model.character.GameCharacter
-import java.util.concurrent.BlockingQueue
-import java.util.concurrent.Executors
-import java.util.concurrent.ScheduledExecutorService
-import java.util.concurrent.TimeUnit
 
 /**
  * A character controlled by the user.

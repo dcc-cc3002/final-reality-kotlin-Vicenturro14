@@ -48,6 +48,7 @@ class Thief(
         "name='$name', " +
         "maxHp=$maxHp, " +
         "currentHp=$currentHp, " +
-        "defense=$defense" +
+        "defense=$defense, " +
+        "equippedWeapon = ${this.equippedWeapon}" +
         ")"
 }

@@ -5,7 +5,6 @@ import cl.uchile.dcc.finalreality.model.character.GameCharacter
 import cl.uchile.dcc.finalreality.model.weapons.Weapon
 import java.util.concurrent.BlockingQueue
 import java.util.concurrent.Executors
-import java.util.concurrent.ScheduledExecutorService
 import java.util.concurrent.TimeUnit
 
 /**
@@ -27,13 +26,10 @@ abstract class AbstractPlayerCharacter(
     turnsQueue: BlockingQueue<GameCharacter>
 ) : AbstractCharacter(name, maxHp, defense, turnsQueue), PlayerCharacter {
 
-    private lateinit var _equippedWeapon: Weapon
-    private lateinit var scheduledExecutor: ScheduledExecutorService
-    val equippedWeapon: Weapon
-        get() = _equippedWeapon
+    lateinit var equippedWeapon: Weapon
 
     override fun equip(weapon: Weapon) {
-        _equippedWeapon = weapon
+        this.equippedWeapon = weapon
     }
 
     override fun waitTurn() {

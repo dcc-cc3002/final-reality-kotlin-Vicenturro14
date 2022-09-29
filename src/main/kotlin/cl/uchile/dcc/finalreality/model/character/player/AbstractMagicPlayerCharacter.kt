@@ -2,7 +2,6 @@ package cl.uchile.dcc.finalreality.model.character.player
 
 import cl.uchile.dcc.finalreality.exceptions.Require
 import cl.uchile.dcc.finalreality.model.character.GameCharacter
-import java.util.Objects
 import java.util.concurrent.BlockingQueue
 
 abstract class AbstractMagicPlayerCharacter(

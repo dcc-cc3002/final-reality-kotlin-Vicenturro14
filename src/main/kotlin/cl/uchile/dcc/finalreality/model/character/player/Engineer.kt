@@ -42,7 +42,6 @@ class Engineer(
         defense != other.defense       -> false
         else                           -> true
     }
-
     override fun hashCode() =
         Objects.hash(this::class, name, maxHp, defense)
 
@@ -50,6 +49,7 @@ class Engineer(
         "name = '$name', " +
         "maxHp = $maxHp, " +
         "currentHp = $currentHp, " +
-        "defense = $defense" +
+        "defense = $defense, " +
+        "equippedWeapon = ${this.equippedWeapon}" +
         ")"
 }

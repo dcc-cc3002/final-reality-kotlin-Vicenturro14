@@ -53,6 +53,7 @@ class WhiteMage(
         "maxMp = $maxMp, " +
         "currentHp = $currentHp, " +
         "currentMp = $currentMp, " +
-        "defense = $defense" +
+        "defense = $defense, " +
+        "equippedWeapon = ${this.equippedWeapon}" +
         ")"
 }

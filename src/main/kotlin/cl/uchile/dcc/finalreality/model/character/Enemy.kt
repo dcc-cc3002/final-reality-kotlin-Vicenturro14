@@ -4,7 +4,6 @@ import cl.uchile.dcc.finalreality.exceptions.Require
 import java.util.*
 import java.util.concurrent.BlockingQueue
 import java.util.concurrent.Executors
-import java.util.concurrent.ScheduledExecutorService
 import java.util.concurrent.TimeUnit
 
 /**
@@ -31,7 +30,6 @@ class Enemy(
     turnsQueue: BlockingQueue<GameCharacter>
 ) : AbstractCharacter(name, maxHp, defense, turnsQueue) {
     val weight = Require.Stat(weight, "Weight") atLeast 1
-    private lateinit var scheduledExecutor: ScheduledExecutorService
 
     override fun equals(other: Any?) = when {
         this === other                 -> true
