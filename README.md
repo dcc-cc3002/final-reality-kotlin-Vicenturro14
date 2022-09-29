@@ -16,4 +16,32 @@ enemies controlled by the computer.
 
 ---
 
-**The rest of the documentation is left for the users of this template to complete**
+Tarea 1
+===
+
+Main.kt
+-
+- La función main muestra las clases por partes.
+- Primero muestra las armas
+- Luego muestra los personajes del jugador
+- Por último, muestra a los enemigos.
+- Puse varios saltos de linea para hacerlo no tan molesto de leer.
+
+Armas:
+-
+- Se crearon las interfaces Weapon y MagicWeapon.
+- La interfaz MagicWeapon se agregó pensando en la posibilidad de que en un futuro se agregue otra arma mágica.
+- La clase Weapon se cambió por la clase AbstractWeapon que implementa la interfaz Weapon.
+- Se creó la clase AbstractMagicWeapon que extiende la clase AbstractWeapon e implementa la interfaz MagicWeapon.
+- La clase AbstractMagicWeapon agrega el atributo de magicDamage.
+- Se creó una clase por cada tipo de arma del juego.
+- Las clases Axe, Knife, Sword y Bow extienden de AbstractWeapon.
+- La clase Staff extiende de AbstractMagicWeapon.
+
+Characters:
+-
+- Se creó la interfaz MagicUser, pensando que para una siguiente tarea se agreguen los hechizos, y la función de lanzar un hechizo estaría en esta interfaz.
+- Se creó la clase AbstractMagicPlayerCharacter que extiende a AbstractPlayerCharacter.
+- Las clases Thief, Knight y Engineer extienden a AbstractPlayerCharacter.
+- Las clases BlackMage y WhiteMage extienden a AbstractMagicPlayerCharacter.
+- El override del método waitTurn en AbstractCharacter fue eliminado y fue reemplazado por un override del método en la clase Enemy y otro override en la clase AbstractPlayerCharacter.
