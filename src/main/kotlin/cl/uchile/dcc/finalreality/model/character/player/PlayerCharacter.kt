@@ -12,13 +12,16 @@ import cl.uchile.dcc.finalreality.model.weapons.Weapon
 /**
  * A character controlled by the user.
  *
- * @author <a href="https://www.github.com/r8vnhill">R8V</a>
- * @author ~Your name~
+ * @author <a href="https://www.github.com/Vicenturro14">Vicenturro14</a>
+ * @author Vicente Olivares
  */
 interface PlayerCharacter {
 
   /**
-   * Equips a weapon to the character.
+   * Equips a [Weapon] to the character.
+   *
+   * @param weapon
+   *   The weapon that is going to be equipped to a [PlayerCharacter].
    */
   fun equip(weapon: Weapon)
 }

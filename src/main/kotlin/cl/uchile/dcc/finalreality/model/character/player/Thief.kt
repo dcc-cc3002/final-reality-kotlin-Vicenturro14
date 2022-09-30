@@ -14,16 +14,23 @@ import java.util.concurrent.BlockingQueue
 /**
  * A `Thief` is a type of [PlayerCharacter] that can equip `Sword`s, `Knife`s and `Bow`s.
  *
- * @param name        the character's name
- * @param maxHp       the character's maximum health points
- * @param defense     the character's defense
- * @param turnsQueue  the queue with the characters waiting for their turn
- * @constructor Creates a new Thief.
+ * @param name
+ *   The character's name
+ * @param maxHp
+ *   The character's maximum health points
+ * @param defense
+ *   The character's defense
+ * @param turnsQueue
+ *   The queue with the characters waiting for their turn
+ * @constructor
+ *   Creates a new Thief.
  *
- * @property currentHp The current HP of the character.
+ * @property currentHp
+ *   The current HP of the character.
  *
- * @author <a href="https://www.github.com/r8vnhill">R8V</a>
- * @author ~Your name~
+ * @author
+ *   <a href="https://www.github.com/Vicenturro14">Vicenturro14</a>
+ * @author Vicente Olivares
  */
 class Thief(
     name: String,
@@ -38,6 +45,7 @@ class Thief(
         hashCode() != other.hashCode() -> false
         name != other.name             -> false
         maxHp != other.maxHp           -> false
+        currentHp != other.currentHp   -> false
         defense != other.defense       -> false
         else                           -> true
     }

@@ -10,14 +10,21 @@ import java.util.concurrent.TimeUnit
 /**
  * A class that holds all the information of a player-controlled character in the game.
  *
- * @param name        the character's name
- * @param maxHp       the character's maximum health points
- * @param defense     the character's defense
- * @param turnsQueue  the queue with the characters waiting for their turn
- * @constructor Creates a new playable character.
+ * @param name
+ *   The character's name.
+ * @param maxHp
+ *   The character's maximum health points.
+ * @param defense
+ *   The character's defense.
+ * @param turnsQueue
+ *   The queue with the characters waiting for their turn.
+ * @property equippedWeapon
+ *   The character's equipped weapon.
  *
- * @author <a href="https://www.github.com/r8vnhill">R8V</a>
- * @author ~Your name~
+ * @author
+ *   <a href="https://www.github.com/Vicenturro14">Vicenturro14</a>
+ * @author
+ *   Vicente Olivares
  */
 abstract class AbstractPlayerCharacter(
     name: String,

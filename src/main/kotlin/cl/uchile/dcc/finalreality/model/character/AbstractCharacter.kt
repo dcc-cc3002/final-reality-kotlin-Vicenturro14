@@ -8,16 +8,22 @@ import java.util.concurrent.ScheduledExecutorService
  * An abstract class that holds the common behaviour of all the characters in the game.
  *
  * @property name
- *    The name of the character.
+ *   The character's name.
  * @property maxHp
- *    The maximum health points of the character.
+ *   The character's maximum health points.
  * @property defense
- *    The defense of the character.
+ *   The character's defense.
  * @property turnsQueue
- *    The queue with the characters waiting for their turn.
+ *   The queue with the characters waiting for their turn.
+ * @property currentHp
+ *   The character's current health points.
+ * @property scheduledExecutor
+ *   A tool that can schedule commands to run after a given delay, or to execute periodically.
  *
- * @author <a href="https://www.github.com/r8vnhill">R8V</a>
- * @author ~Your name~
+ * @author
+ *   <a href="https://www.github.com/Vicenturro14">Vicenturro14</a>
+ * @author
+ *   Vicente Olivares
  */
 abstract class AbstractCharacter(
     val name: String,
@@ -35,9 +41,6 @@ abstract class AbstractCharacter(
     val defense = Require.Stat(defense, "Defense") atLeast 0
 
 
-    /**
-     * Adds this character to the turns queue.
-     */
     override fun addToQueue() {
         turnsQueue.put(this)
         scheduledExecutor.shutdown()

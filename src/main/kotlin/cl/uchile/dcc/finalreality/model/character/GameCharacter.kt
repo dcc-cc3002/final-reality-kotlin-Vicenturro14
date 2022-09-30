@@ -4,8 +4,10 @@ package cl.uchile.dcc.finalreality.model.character
  * This represents a character from the game.
  * A character can be controlled by the player or by the CPU (an enemy).
  *
- * @author <a href="https://www.github.com/r8vnhill">R8V</a>
- * @author ~Your name~
+ * @author
+ *   <a href="https://github.com/Vicenturro14">Vicenturro14</a>
+ * @author
+ *   Vicente Olivares
  */
 interface GameCharacter {
 
@@ -14,5 +16,9 @@ interface GameCharacter {
      * seconds before adding the character to the queue.
      */
     fun waitTurn()
+
+    /**
+     * Adds this character to the turns queue.
+     */
     fun addToQueue()
 }

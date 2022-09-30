@@ -9,17 +9,28 @@ import java.util.concurrent.TimeUnit
 /**
  * A class that holds all the information of a single enemy of the game.
  *
- * @param name The name of this enemy.
- * @property weight The weight of this enemy.
- * @param turnsQueue The queue with the characters waiting for their turn.
- * @param maxHp The maximum health points of this enemy.
- * @param defense The defense of this enemy.
+ * @param name
+ *   The name of this enemy.
+ * @param weight
+ *   The weight of this enemy.
+ * @param maxHp
+ *   The maximum health points of this enemy.
+ * @param defense
+ *   The defense of this enemy.
+ * @param turnsQueue
+ *   The queue with the characters waiting for their turn.
  *
- * @constructor Creates a new enemy with a name, a weight and the queue with the characters ready to
+ * @constructor
+ *   Creates a new enemy with a name, a weight, a defense and the queue with the characters ready to
  *  play.
  *
- * @author <a href="https://github.com/r8vnhill">R8V</a>
- * @author ~Your name~
+ * @property currentHp
+ *   The current health points of this enemy.
+ *
+ * @author
+ *   <a href="https://github.com/Vicenturro14">Vicenturro14</a>
+ * @author
+ *   Vicente Olivares
  */
 class Enemy(
     name: String,
@@ -38,6 +49,7 @@ class Enemy(
         name != other.name             -> false
         weight != other.weight         -> false
         maxHp != other.maxHp           -> false
+        currentHp != other.currentHp   -> false
         defense != other.defense       -> false
         attack != other.attack         -> false
         else                           -> true

@@ -2,6 +2,26 @@ package cl.uchile.dcc.finalreality.model.weapons
 
 import java.util.Objects
 
+/**
+ * A Staff is a type of [Weapon] and [MagicWeapon].
+ *
+ * @param name
+ *     The name of the magic weapon.
+ * @param damage Int
+ *     The base damage done by the magic weapon.
+ * @param weight Int
+ *     The weight of the magic weapon.
+ * @param magicDamage Int
+ *     The additional magic damage done by the magic weapon.
+ *
+ * @constructor
+ *   Creates a new Staff.
+ *
+ * @author
+ *   <a href="https://www.github.com/Vicenturro14">Vicenturro14</a>
+ * @author
+ *   Vicente Olivares
+ */
 class Staff(
     name: String,
     damage: Int,

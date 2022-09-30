@@ -12,20 +12,30 @@ import java.util.Objects
 import java.util.concurrent.BlockingQueue
 
 /**
- * A White Mage is a type of [PlayerCharacter] that can cast white magic.
+ * A White Mage is a type of [MagicUser] that can cast white magic.
  *
- * @param name        the character's name
- * @param maxHp       the character's maximum health points
- * @param maxMp       the character's maximum magic points
- * @param defense     the character's defense
- * @param turnsQueue  the queue with the characters waiting for their turn
- * @constructor Creates a new Black Mage.
+ * @param name
+ *   The character's name
+ * @param maxHp
+ *   The character's maximum health points
+ * @param maxMp
+ *   The character's maximum magic points
+ * @param defense
+ *   The character's defense
+ * @param turnsQueue
+ *   The queue with the characters waiting for their turn
+ * @constructor
+ *   Creates a new White Mage.
  *
- * @property currentMp The current MP of the character.
- * @property currentHp The current HP of the character.
+ * @property currentMp
+ *   The current MP of the character.
+ * @property currentHp
+ *   The current HP of the character.
  *
- * @author <a href="https://www.github.com/r8vnhill">R8V</a>
- * @author ~Your name~
+ * @author
+ *   <a href="https://www.github.com/Vicenturro14">Vicenturro14</a>
+ * @author
+ *   Vicente Olivares
  */
 class WhiteMage(
   name: String,
@@ -41,7 +51,9 @@ class WhiteMage(
         hashCode() != other.hashCode() -> false
         name != other.name             -> false
         maxHp != other.maxHp           -> false
+        currentHp != other.currentHp   -> false
         maxMp != other.maxMp           -> false
+        currentMp != other.currentMp   -> false
         defense != other.defense       -> false
         else                           -> true
     }

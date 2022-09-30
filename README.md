@@ -21,10 +21,11 @@ Tarea 1
 
 Main.kt
 -
-- La función main muestra las clases por partes.
+- La funcion main muestra las clases por partes.
 - Primero muestra las armas
 - Luego muestra los personajes del jugador
-- Por último, muestra a los enemigos.
+- Despues, muestra a los enemigos.
+- Por ultimo, muestra el método waitTurn.
 - Puse varios saltos de linea para hacerlo no tan molesto de leer.
 
 Armas:

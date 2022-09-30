@@ -10,10 +10,10 @@ package cl.uchile.dcc.finalreality.model.weapons
  * @property weight Int
  *     The weight of the weapon.
  *
- * @constructor Creates a weapon with a name, a base damage and speed.
- *
- * @author <a href="https://www.github.com/r8vnhill">R8V</a>
- * @author ~Your name~
+ * @author
+ *   <a href="https://www.github.com/Vicenturro14">Vicenturro14</a>
+ * @author
+ *   Vicente Olivares
  */
 abstract class AbstractWeapon(
     val name: String,
