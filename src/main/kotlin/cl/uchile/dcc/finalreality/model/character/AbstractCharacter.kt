@@ -40,7 +40,6 @@ abstract class AbstractCharacter(
         }
     val defense = Require.Stat(defense, "Defense") atLeast 0
 
-
     override fun addToQueue() {
         turnsQueue.put(this)
         scheduledExecutor.shutdown()

@@ -161,6 +161,6 @@ fun main() {
     while (!queue.isEmpty()) {
         // Pops and prints the names of the characters of the queue to illustrate the turns
         // order
-        println("${queue.poll()}\n")
+        println(queue.poll())
     }
 }

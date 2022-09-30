@@ -9,5 +9,4 @@ package cl.uchile.dcc.finalreality.model.weapons
  * @author
  *   Vicente Olivares
  */
-interface MagicWeapon {
-}
+interface MagicWeapon

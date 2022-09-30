@@ -24,16 +24,16 @@ class Sword(
     name: String,
     damage: Int,
     weight: Int
-) : AbstractWeapon(name, damage, weight){
+) : AbstractWeapon(name, damage, weight) {
 
     override fun equals(other: Any?) = when {
-        this === other                 -> true
-        other !is Sword                -> false
+        this === other -> true
+        other !is Sword -> false
         hashCode() != other.hashCode() -> false
-        this.name != other.name        -> false
-        this.damage != other.damage    -> false
-        this.weight != other.weight    -> false
-        else                           -> true
+        this.name != other.name -> false
+        this.damage != other.damage -> false
+        this.weight != other.weight -> false
+        else -> true
     }
 
     override fun hashCode(): Int = Objects.hash(this::class, name, damage, weight)

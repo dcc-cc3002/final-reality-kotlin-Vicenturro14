@@ -38,24 +38,24 @@ import java.util.concurrent.BlockingQueue
  *   Vicente Olivares
  */
 class WhiteMage(
-  name: String,
-  maxHp: Int,
-  maxMp: Int,
-  defense: Int,
-  turnsQueue: BlockingQueue<GameCharacter>
+    name: String,
+    maxHp: Int,
+    maxMp: Int,
+    defense: Int,
+    turnsQueue: BlockingQueue<GameCharacter>
 ) : AbstractMagicPlayerCharacter(name, maxHp, maxMp, defense, turnsQueue) {
 
     override fun equals(other: Any?) = when {
-        this === other                 -> true
-        other !is WhiteMage            -> false
+        this === other -> true
+        other !is WhiteMage -> false
         hashCode() != other.hashCode() -> false
-        name != other.name             -> false
-        maxHp != other.maxHp           -> false
-        currentHp != other.currentHp   -> false
-        maxMp != other.maxMp           -> false
-        currentMp != other.currentMp   -> false
-        defense != other.defense       -> false
-        else                           -> true
+        name != other.name -> false
+        maxHp != other.maxHp -> false
+        currentHp != other.currentHp -> false
+        maxMp != other.maxMp -> false
+        currentMp != other.currentMp -> false
+        defense != other.defense -> false
+        else -> true
     }
 
     override fun hashCode() = Objects.hash(this::class, name, maxHp, maxMp, defense)

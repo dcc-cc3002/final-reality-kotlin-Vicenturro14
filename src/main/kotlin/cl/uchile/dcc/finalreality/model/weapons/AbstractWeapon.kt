@@ -25,4 +25,3 @@ abstract class AbstractWeapon(
         return this.weight
     }
 }
-

@@ -1,8 +1,8 @@
 package cl.uchile.dcc
 
-import cl.uchile.dcc.finalreality.model.weapons.Knife
 import cl.uchile.dcc.finalreality.model.character.GameCharacter
 import cl.uchile.dcc.finalreality.model.character.player.Thief
+import cl.uchile.dcc.finalreality.model.weapons.Knife
 import java.util.concurrent.LinkedBlockingQueue
 import kotlin.random.Random
 

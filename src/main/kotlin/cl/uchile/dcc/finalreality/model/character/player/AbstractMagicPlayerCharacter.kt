@@ -31,7 +31,7 @@ abstract class AbstractMagicPlayerCharacter(
     maxMp: Int,
     defense: Int,
     turnsQueue: BlockingQueue<GameCharacter>
-) : AbstractPlayerCharacter(name, maxHp, defense, turnsQueue), MagicUser{
+) : AbstractPlayerCharacter(name, maxHp, defense, turnsQueue), MagicUser {
     val maxMp = Require.Stat(maxMp, "Max MP") atLeast 0
     var currentMp: Int = maxMp
         set(value) {

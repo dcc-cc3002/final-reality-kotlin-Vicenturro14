@@ -14,5 +14,5 @@ interface Weapon {
     /**
      * Gives the weight of the weapon.
      */
-    fun giveWeight():Int
+    fun giveWeight(): Int
 }

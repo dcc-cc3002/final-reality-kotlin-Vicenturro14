@@ -6,4 +6,4 @@ package cl.uchile.dcc.finalreality.model.character.player
  * @author <a href="https://www.github.com/Vicenturro14">Vicenturro14</a>
  * @author Vicente Olivares
  */
-interface MagicUser {}
+interface MagicUser

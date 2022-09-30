@@ -46,16 +46,16 @@ class BlackMage(
 ) : AbstractMagicPlayerCharacter(name, maxHp, maxMp, defense, turnsQueue) {
 
     override fun equals(other: Any?) = when {
-        this === other                 -> true
-        other !is BlackMage            -> false
+        this === other -> true
+        other !is BlackMage -> false
         hashCode() != other.hashCode() -> false
-        name != other.name             -> false
-        maxHp != other.maxHp           -> false
-        currentHp != other.currentHp   -> false
-        maxMp != other.maxMp           -> false
-        currentMp != other.currentMp   -> false
-        defense != other.defense       -> false
-        else                           -> true
+        name != other.name -> false
+        maxHp != other.maxHp -> false
+        currentHp != other.currentHp -> false
+        maxMp != other.maxMp -> false
+        currentMp != other.currentMp -> false
+        defense != other.defense -> false
+        else -> true
     }
 
     override fun hashCode() = Objects.hash(this::class, name, maxHp, maxMp, defense)
