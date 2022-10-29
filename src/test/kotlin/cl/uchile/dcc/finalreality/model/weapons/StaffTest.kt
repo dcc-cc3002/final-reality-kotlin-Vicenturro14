@@ -16,19 +16,6 @@ class StaffTest : FunSpec({
     test("Two staffs with the same parameters are equal") {
         checkAll(
             Arb.string(),
-            Arb.positiveInt(100000),
-            Arb.positiveInt(100000),
-            Arb.positiveInt(100000)
-        ) {name, damage, weight, magicDamage ->
-            val staff1 = Staff(name, damage, weight, magicDamage)
-            val staff2 = Staff(name, damage, weight, magicDamage)
-            staff1 shouldNotBeSameInstanceAs staff2
-            staff2 shouldBe staff2
-        }
-    }
-    test("Two staffs with different parameters shouldn't be equal") {
-        checkAll(
-            Arb.string(),
             Arb.string(),
             Arb.positiveInt(100000),
             Arb.positiveInt(100000),
@@ -40,24 +27,15 @@ class StaffTest : FunSpec({
             assume(name1 != name2 || damage1 != damage2 || weight1 != weight2 || magicDamage1 != magicDamage2)
             val staff1 = Staff(name1, damage1, weight1, magicDamage1)
             val staff2 = Staff(name2, damage2, weight2, magicDamage2)
+            val staff3 = Staff(name1, damage1, weight1, magicDamage1)
             staff1 shouldNotBeSameInstanceAs staff2
             staff1 shouldNotBe staff2
+            staff1 shouldNotBeSameInstanceAs staff3
+            staff1 shouldBe staff3
         }
     }
 
     test("Two equal staffs should have the same hashCode") {
-        checkAll(
-            Arb.string(),
-            Arb.positiveInt(100000),
-            Arb.positiveInt(100000),
-            Arb.positiveInt(100000)
-        ) { name, damage, weight, magicDamage ->
-            val staff1 = Staff(name, damage, weight, magicDamage)
-            val staff2 = Staff(name, damage, weight, magicDamage)
-            staff1.shouldHaveSameHashCodeAs(staff2)
-        }
-    }
-    test("Two different staffs shouldn't have the same hashCode") {
         checkAll(
             Arb.string(),
             Arb.string(),
@@ -71,7 +49,11 @@ class StaffTest : FunSpec({
             assume(name1 != name2 || damage1 != damage2 || weight1 != weight2 || magicDamage1 != magicDamage2)
             val staff1 = Staff(name1, damage1, weight1, magicDamage1)
             val staff2 = Staff(name2, damage2, weight2, magicDamage2)
+            val staff3 = Staff(name1, damage1, weight1, magicDamage1)
+            staff1 shouldNotBeSameInstanceAs staff2
             staff1.shouldNotHaveSameHashCodeAs(staff2)
+            staff1 shouldNotBeSameInstanceAs staff3
+            staff1.shouldHaveSameHashCodeAs(staff3)
         }
     }
 
@@ -83,7 +65,7 @@ class StaffTest : FunSpec({
             Arb.positiveInt(100000)
         ) { name, damage, weight, magicDamage ->
             val staff1 = Staff(name, damage, weight, magicDamage)
-            "$staff1" shouldBe "Staff(${staff1.name}, ${staff1.damage}, ${staff1.weight}, ${staff1.magicDamage})"
+            "$staff1" shouldBe "Staff(name = ${staff1.name}, damage = ${staff1.damage}, weight = ${staff1.weight}, magicDamage = ${staff1.magicDamage})"
         }
     }
 })

@@ -39,8 +39,8 @@ class Bow(
     override fun hashCode(): Int = Objects.hash(this::class, name, damage, weight)
 
     override fun toString() = "Bow(" +
-        "name = $name," +
-        "damage = $damage," +
+        "name = $name, " +
+        "damage = $damage, " +
         "weight = $weight" +
         ")"
 }

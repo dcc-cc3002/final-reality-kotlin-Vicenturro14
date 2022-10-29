@@ -16,18 +16,6 @@ class AxeTest : FunSpec({
     test("Two axes with the same parameters are equal") {
         checkAll(
             Arb.string(),
-            Arb.positiveInt(100000),
-            Arb.positiveInt(100000)
-        ) {name, damage, weight ->
-            val axe1 = Axe(name, damage, weight)
-            val axe2 = Axe(name, damage, weight)
-            axe1 shouldNotBeSameInstanceAs axe2
-            axe2 shouldBe axe2
-        }
-    }
-    test("Two axes with different parameters shouldn't be equal") {
-        checkAll(
-            Arb.string(),
             Arb.string(),
             Arb.positiveInt(100000),
             Arb.positiveInt(100000),
@@ -37,22 +25,15 @@ class AxeTest : FunSpec({
             assume(name1 != name2 || damage1 != damage2 || weight1 != weight2)
             val axe1 = Axe(name1, damage1, weight1)
             val axe2 = Axe(name2, damage2, weight2)
+            val axe3 = Axe(name1, damage1, weight1)
             axe1 shouldNotBeSameInstanceAs axe2
             axe1 shouldNotBe axe2
+            axe1 shouldNotBeSameInstanceAs axe3
+            axe1 shouldBe axe3
         }
     }
+
     test("Two equal axes should have the same hashCode") {
-        checkAll(
-            Arb.string(),
-            Arb.positiveInt(100000),
-            Arb.positiveInt(100000)
-        ) { name, damage, weight ->
-            val axe1 = Axe(name, damage, weight)
-            val axe2 = Axe(name, damage, weight)
-            axe1.shouldHaveSameHashCodeAs(axe2)
-        }
-    }
-    test("Two different axes shouldn't have the same hashCode") {
         checkAll(
             Arb.string(),
             Arb.string(),
@@ -64,9 +45,14 @@ class AxeTest : FunSpec({
             assume(name1 != name2 || damage1 != damage2 || weight1 != weight2)
             val axe1 = Axe(name1, damage1, weight1)
             val axe2 = Axe(name2, damage2, weight2)
+            val axe3 = Axe(name1, damage1, weight1)
+            axe1 shouldNotBeSameInstanceAs axe2
             axe1.shouldNotHaveSameHashCodeAs(axe2)
+            axe1 shouldNotBeSameInstanceAs axe3
+            axe1.shouldHaveSameHashCodeAs(axe3)
         }
     }
+
     test("The string representation of an axe should be correct") {
         checkAll(
             Arb.string(),
@@ -74,7 +60,7 @@ class AxeTest : FunSpec({
             Arb.positiveInt(100000)
         ) { name, damage, weight ->
             val axe1 = Axe(name, damage, weight)
-            "$axe1" shouldBe "Axe(${axe1.name}, ${axe1.damage}, ${axe1.weight})"
+            "$axe1" shouldBe "Axe(name = ${axe1.name}, damage = ${axe1.damage}, weight = ${axe1.weight})"
         }
     }
 })

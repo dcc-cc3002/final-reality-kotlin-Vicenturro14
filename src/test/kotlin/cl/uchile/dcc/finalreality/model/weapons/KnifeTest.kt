@@ -15,44 +15,24 @@ import io.kotest.property.checkAll
 class KnifeTest : FunSpec({
     test("Two knives with the same parameters are equal") {
         checkAll(
-        Arb.string(),
-        Arb.positiveInt(100000),
-        Arb.positiveInt(100000)
-    ) {name, damage, weight ->
-        val knife1 = Knife(name, damage, weight)
-        val knife2 = Knife(name, damage, weight)
-        knife1 shouldNotBeSameInstanceAs knife2
-        knife2 shouldBe knife2
-    }
-}
-    test("Two knives with different parameters shouldn't be equal") {
-        checkAll(
-        Arb.string(),
-        Arb.string(),
-        Arb.positiveInt(100000),
-        Arb.positiveInt(100000),
-        Arb.positiveInt(100000),
-        Arb.positiveInt(100000)
+            Arb.string(),
+            Arb.string(),
+            Arb.positiveInt(100000),
+            Arb.positiveInt(100000),
+            Arb.positiveInt(100000),
+            Arb.positiveInt(100000)
         ) {name1, name2, damage1, damage2, weight1, weight2 ->
-        assume(name1 != name2 || damage1 != damage2 || weight1 != weight2)
-        val knife1 = Knife(name1, damage1, weight1)
-        val knife2 = Knife(name2, damage2, weight2)
-        knife1 shouldNotBeSameInstanceAs knife2
-        knife1 shouldNotBe knife2
+            assume(name1 != name2 || damage1 != damage2 || weight1 != weight2)
+            val knife1 = Knife(name1, damage1, weight1)
+            val knife2 = Knife(name2, damage2, weight2)
+            val knife3 = Knife(name1, damage1, weight1)
+            knife1 shouldNotBeSameInstanceAs knife2
+            knife1 shouldNotBe knife2
+            knife1 shouldNotBeSameInstanceAs knife3
+            knife1 shouldBe knife3
         }
     }
     test("Two equal knives should have the same hashCode") {
-        checkAll(
-            Arb.string(),
-            Arb.positiveInt(100000),
-            Arb.positiveInt(100000)
-        ) { name, damage, weight ->
-            val knife1 = Knife(name, damage, weight)
-            val knife2 = Knife(name, damage, weight)
-            knife1.shouldHaveSameHashCodeAs(knife2)
-        }
-    }
-    test("Two different knives shouldn't have the same hashCode") {
         checkAll(
             Arb.string(),
             Arb.string(),
@@ -64,7 +44,11 @@ class KnifeTest : FunSpec({
             assume(name1 != name2 || damage1 != damage2 || weight1 != weight2)
             val knife1 = Knife(name1, damage1, weight1)
             val knife2 = Knife(name2, damage2, weight2)
+            val knife3 = Knife(name1, damage1, weight1)
+            knife1 shouldNotBeSameInstanceAs knife2
             knife1.shouldNotHaveSameHashCodeAs(knife2)
+            knife1 shouldNotBeSameInstanceAs knife3
+            knife1.shouldHaveSameHashCodeAs(knife3)
         }
     }
     test("The string representation of a knife should be correct") {
@@ -74,7 +58,7 @@ class KnifeTest : FunSpec({
             Arb.positiveInt(100000)
         ) { name, damage, weight ->
             val knife1 = Knife(name, damage, weight)
-            "$knife1" shouldBe "Knife(${knife1.name}, ${knife1.damage}, ${knife1.weight})"
+            "$knife1" shouldBe "Knife(name = ${knife1.name}, damage = ${knife1.damage}, weight = ${knife1.weight})"
         }
     }
 })
