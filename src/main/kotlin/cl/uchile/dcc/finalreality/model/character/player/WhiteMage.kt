@@ -58,7 +58,7 @@ class WhiteMage(
         else -> true
     }
 
-    override fun hashCode() = Objects.hash(this::class, name, maxHp, maxMp, defense)
+    override fun hashCode() = Objects.hash(this::class, name, maxHp, maxMp, currentHp, currentMp, defense)
     override fun toString() = "WhiteMage(" +
         "name = '$name', " +
         "maxHp = $maxHp, " +

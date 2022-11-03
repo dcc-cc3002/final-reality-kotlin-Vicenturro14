@@ -39,7 +39,7 @@ class Sword(
     override fun hashCode(): Int = Objects.hash(this::class, name, damage, weight)
 
     override fun toString() = "Sword(" +
-        "name = $name, " +
+        "name = '$name', " +
         "damage = $damage, " +
         "weight = $weight" +
         ")"

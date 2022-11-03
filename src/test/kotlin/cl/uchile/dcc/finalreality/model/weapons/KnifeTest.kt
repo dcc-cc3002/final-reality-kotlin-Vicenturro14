@@ -58,7 +58,7 @@ class KnifeTest : FunSpec({
             Arb.positiveInt(100000)
         ) { name, damage, weight ->
             val knife1 = Knife(name, damage, weight)
-            "$knife1" shouldBe "Knife(name = ${knife1.name}, damage = ${knife1.damage}, weight = ${knife1.weight})"
+            "$knife1" shouldBe "Knife(name = '${knife1.name}', damage = ${knife1.damage}, weight = ${knife1.weight})"
         }
     }
 })

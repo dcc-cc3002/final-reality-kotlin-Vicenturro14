@@ -51,7 +51,7 @@ class Knight(
         else -> true
     }
 
-    override fun hashCode() = Objects.hash(this::class, name, maxHp, defense)
+    override fun hashCode() = Objects.hash(this::class, name, maxHp, currentHp, defense)
 
     override fun toString() = "Knight(" +
         "name: '$name', " +

@@ -17,6 +17,7 @@ fun main() {
     }
     // Waits for 6 seconds to ensure that all characters have finished waiting
     Thread.sleep(6000)
+
     while (!queue.isEmpty()) {
         // Pops and prints the names of the characters of the queue to illustrate the turns
         // order

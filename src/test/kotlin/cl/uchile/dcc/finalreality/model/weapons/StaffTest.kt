@@ -65,7 +65,7 @@ class StaffTest : FunSpec({
             Arb.positiveInt(100000)
         ) { name, damage, weight, magicDamage ->
             val staff1 = Staff(name, damage, weight, magicDamage)
-            "$staff1" shouldBe "Staff(name = ${staff1.name}, damage = ${staff1.damage}, weight = ${staff1.weight}, magicDamage = ${staff1.magicDamage})"
+            "$staff1" shouldBe "Staff(name = '${staff1.name}', damage = ${staff1.damage}, weight = ${staff1.weight}, magicDamage = ${staff1.magicDamage})"
         }
     }
 })

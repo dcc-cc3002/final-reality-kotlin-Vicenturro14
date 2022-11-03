@@ -42,7 +42,7 @@ class Staff(
     override fun hashCode(): Int = Objects.hash(this::class, name, damage, weight, magicDamage)
 
     override fun toString() = "Staff(" +
-        "name = $name, " +
+        "name = '$name', " +
         "damage = $damage, " +
         "weight = $weight, " +
         "magicDamage = $magicDamage" +

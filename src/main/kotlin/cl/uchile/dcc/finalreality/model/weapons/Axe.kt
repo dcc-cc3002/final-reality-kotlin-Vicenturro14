@@ -38,7 +38,7 @@ class Axe(
     override fun hashCode(): Int = Objects.hash(this::class, name, damage, weight)
 
     override fun toString() = "Axe(" +
-        "name = $name, " +
+        "name = '$name', " +
         "damage = $damage, " +
         "weight = $weight" +
         ")"

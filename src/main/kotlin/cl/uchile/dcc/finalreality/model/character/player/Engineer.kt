@@ -52,7 +52,7 @@ class Engineer(
         else -> true
     }
     override fun hashCode() =
-        Objects.hash(this::class, name, maxHp, defense)
+        Objects.hash(this::class, name, maxHp, currentHp, defense)
 
     override fun toString() = "Engineer(" +
         "name = '$name', " +
