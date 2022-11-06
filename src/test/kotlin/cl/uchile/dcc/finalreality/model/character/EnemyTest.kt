@@ -26,8 +26,6 @@ private lateinit var enemy2: Enemy
 private lateinit var enemy3: Enemy
 private const val ENEMY1_NAME = "Dylan"
 private const val ENEMY2_NAME = "Javiera"
-private const val ENEMY1_WEIGHT = 70
-private const val ENEMY2_WEIGHT = 1
 private const val ENEMY1_MAXHP = 100
 private const val ENEMY2_MAXHP = 150
 private const val ENEMY1_DEFENSE = 200
