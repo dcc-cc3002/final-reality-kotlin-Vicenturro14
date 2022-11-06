@@ -24,23 +24,18 @@ import java.util.concurrent.LinkedBlockingQueue
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
-lateinit var enemy1: Enemy
-lateinit var enemy2: Enemy
-lateinit var enemy3: Enemy
+private lateinit var enemy1: Enemy
+private lateinit var enemy2: Enemy
+private lateinit var enemy3: Enemy
 private const val ENEMY1_NAME = "Dylan"
 private const val ENEMY2_NAME = "Javiera"
-//private const val ENEMY3_NAME = "Arturo"
 private const val ENEMY1_WEIGHT = 70
 private const val ENEMY2_WEIGHT = 1
-//private const val ENEMY3_WEIGHT = 45
 private const val ENEMY1_MAXHP = 100
 private const val ENEMY2_MAXHP = 150
-//private const val ENEMY3_MAXHP = 50
 private const val ENEMY1_DEFENSE = 200
 private const val ENEMY2_DEFENSE = 175
-//private const val ENEMY3_DEFENSE = 75
-val turnsQueue = LinkedBlockingQueue<GameCharacter>()
-
+private val turnsQueue = LinkedBlockingQueue<GameCharacter>()
 
 class EnemyTest : FunSpec({
 
@@ -112,8 +107,8 @@ class EnemyTest : FunSpec({
             Arb.positiveInt(10000),
             Arb.positiveInt(100000)
         ) { name, weight, maxHp, currentHp, defense ->
-            enemy1 = Enemy(name, weight, maxHp, defense, turnsQueue)
             assume(currentHp <= maxHp)
+            enemy1 = Enemy(name, weight, maxHp, defense, turnsQueue)
             enemy1.currentHp = currentHp
             "$enemy1" shouldBe "Enemy(name = '${enemy1.name}', weight = ${enemy1.weight}, maxHp = ${enemy1.maxHp}, " +
                 "currentHp = ${enemy1.currentHp}, defense = ${enemy1.defense})"
@@ -130,73 +125,6 @@ class EnemyTest : FunSpec({
             }
             shouldThrow<InvalidStatValueException> {
                 Enemy(ENEMY2_NAME, weight2, ENEMY2_MAXHP, ENEMY2_DEFENSE, turnsQueue)
-            }
-        }
-    }
-
-    test("The maxHp of an enemy should be at least 1") {
-        checkAll(
-            Arb.positiveInt(100000),
-            Arb.nonPositiveInt(-100000)
-        ) {maxHp1, maxHp2 ->
-            shouldNotThrow<InvalidStatValueException> {
-                Enemy(ENEMY1_NAME, ENEMY1_WEIGHT, maxHp1, ENEMY1_DEFENSE, turnsQueue)
-            }
-            shouldThrow<InvalidStatValueException> {
-                Enemy(ENEMY2_NAME, ENEMY2_WEIGHT, maxHp2, ENEMY2_DEFENSE,turnsQueue)
-            }
-        }
-    }
-
-    test("The currentHp of an enemy should be at least 0") {
-        checkAll(
-            Arb.positiveInt(100000),
-            Arb.positiveInt(100000),
-            Arb.nonNegativeInt(10000),
-            Arb.negativeInt(-100000)
-        ) {maxHp1, maxHp2, currentHp1, currentHp2 ->
-            assume(currentHp1 <= maxHp1)
-            enemy1 = Enemy(ENEMY1_NAME, ENEMY1_WEIGHT, maxHp1, ENEMY1_DEFENSE, turnsQueue)
-            enemy2 = Enemy(ENEMY2_NAME, ENEMY2_WEIGHT, maxHp2, ENEMY2_DEFENSE, turnsQueue)
-            shouldNotThrowUnit<InvalidStatValueException> {
-                enemy1.currentHp = currentHp1
-            }
-            shouldThrowUnit<InvalidStatValueException> {
-                enemy2.currentHp = currentHp2
-            }
-        }
-    }
-
-    test("The currentHp of an enemy should be at most maxHp") {
-        checkAll(
-            Arb.positiveInt(100000),
-            Arb.positiveInt(100000),
-            Arb.nonNegativeInt(10000),
-            Arb.nonNegativeInt(1000000)
-        ) {maxHp1, maxHp2, currentHp1, currentHp2 ->
-            assume(currentHp1 <= maxHp1)
-            enemy1 = Enemy(ENEMY1_NAME, ENEMY1_WEIGHT, maxHp1, ENEMY1_DEFENSE, turnsQueue)
-            enemy2 = Enemy(ENEMY2_NAME, ENEMY2_WEIGHT, maxHp2, ENEMY2_DEFENSE, turnsQueue)
-            shouldNotThrowUnit<InvalidStatValueException> {
-                enemy1.currentHp = currentHp1
-            }
-            shouldThrowUnit<InvalidStatValueException> {
-                // The value assigned to enemy2.currentHp is currentHp2 + maxHp2 + 1 to ensure that assignment is out of range.
-                enemy2.currentHp = currentHp2 + maxHp2 + 1
-            }
-        }
-    }
-
-    test("The defense of an enemy should be at least 0") {
-        checkAll(
-            Arb.nonNegativeInt(100000),
-            Arb.negativeInt(-100000)
-        ) {defense1, defense2 ->
-            shouldNotThrow<InvalidStatValueException> {
-                Enemy(ENEMY1_NAME, ENEMY1_WEIGHT, ENEMY1_MAXHP, defense1, turnsQueue)
-            }
-            shouldThrow<InvalidStatValueException> {
-                Enemy(ENEMY2_NAME, ENEMY2_WEIGHT, ENEMY2_MAXHP, defense2, turnsQueue)
             }
         }
     }

@@ -16,16 +16,9 @@ repositories {
 }
 
 dependencies {
+    implementation("io.kotest:kotest-assertions-core:5.5.2")
     implementation("io.kotest:kotest-property:5.5.2")
     testImplementation("io.kotest:kotest-runner-junit5-jvm:5.5.2")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
-    testImplementation("org.junit.jupiter:junit-jupiter:5.9.0")
 }
 
 tasks.test {

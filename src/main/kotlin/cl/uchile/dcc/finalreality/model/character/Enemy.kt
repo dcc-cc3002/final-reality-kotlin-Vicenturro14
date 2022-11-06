@@ -37,7 +37,6 @@ class Enemy(
     weight: Int,
     maxHp: Int,
     defense: Int,
-    val attack: Int,
     turnsQueue: BlockingQueue<GameCharacter>
 ) : AbstractCharacter(name, maxHp, defense, turnsQueue) {
     val weight = Require.Stat(weight, "Weight") atLeast 1
@@ -51,19 +50,17 @@ class Enemy(
         maxHp != other.maxHp -> false
         currentHp != other.currentHp -> false
         defense != other.defense -> false
-        attack != other.attack -> false
         else -> true
     }
 
-    override fun hashCode() = Objects.hash(Enemy::class, name, weight, maxHp, currentHp, defense, attack)
+    override fun hashCode() = Objects.hash(Enemy::class, name, weight, maxHp, currentHp, defense)
 
     override fun toString() = "Enemy(" +
         "name = '$name', " +
         "weight = $weight, " +
         "maxHp = $maxHp, " +
         "currentHp = $currentHp, " +
-        "defense = $defense, " +
-        "attack = $attack" +
+        "defense = $defense" +
         ")"
 
     override fun waitTurn() {
