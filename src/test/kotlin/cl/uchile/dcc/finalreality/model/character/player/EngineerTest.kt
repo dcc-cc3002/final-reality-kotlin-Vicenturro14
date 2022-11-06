@@ -33,7 +33,6 @@ private const val ENG1_DEFENSE = 75
 private const val ENG2_DEFENSE = 150
 private const val ENG1_MAXHP = 200
 private const val ENG2_MAXHP = 100
-
 private val axe = Axe("testAxe", 100, 30)
 private val bow = Bow("testBow", 75, 20)
 private val turnsQueue = LinkedBlockingQueue<GameCharacter>()

@@ -1,11 +1,11 @@
 package cl.uchile.dcc.finalreality.model.character
 
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException
-import cl.uchile.dcc.finalreality.model.character.player.BlackMage
+import cl.uchile.dcc.finalreality.model.character.player.mages.BlackMage
 import cl.uchile.dcc.finalreality.model.character.player.Engineer
 import cl.uchile.dcc.finalreality.model.character.player.Knight
 import cl.uchile.dcc.finalreality.model.character.player.Thief
-import cl.uchile.dcc.finalreality.model.character.player.WhiteMage
+import cl.uchile.dcc.finalreality.model.character.player.mages.WhiteMage
 import io.kotest.assertions.throwables.shouldNotThrow
 import io.kotest.assertions.throwables.shouldNotThrowUnit
 import io.kotest.assertions.throwables.shouldThrow
@@ -89,7 +89,7 @@ class AbstractCharacterTest : FunSpec({
             }
         }
     }
-    test("The currentHp of a character chould be at most maxHp") {
+    test("The currentHp of a character should be at most maxHp") {
         checkAll(
             Arb.positiveInt(100000),
             Arb.nonNegativeInt(10000),

@@ -2,9 +2,7 @@ package cl.uchile.dcc.finalreality.model.character
 
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException
 import io.kotest.assertions.throwables.shouldNotThrow
-import io.kotest.assertions.throwables.shouldNotThrowUnit
 import io.kotest.assertions.throwables.shouldThrow
-import io.kotest.assertions.throwables.shouldThrowUnit
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
@@ -13,7 +11,6 @@ import io.kotest.matchers.types.shouldHaveSameHashCodeAs
 import io.kotest.matchers.types.shouldNotBeSameInstanceAs
 import io.kotest.matchers.types.shouldNotHaveSameHashCodeAs
 import io.kotest.property.Arb
-import io.kotest.property.arbitrary.negativeInt
 import io.kotest.property.arbitrary.nonNegativeInt
 import io.kotest.property.arbitrary.nonPositiveInt
 import io.kotest.property.arbitrary.positiveInt
@@ -38,11 +35,9 @@ private const val ENEMY2_DEFENSE = 175
 private val turnsQueue = LinkedBlockingQueue<GameCharacter>()
 
 class EnemyTest : FunSpec({
-
     beforeEach {
         turnsQueue.clear()
     }
-
     test("Two enemies with the same parameters are equal") {
         checkAll(
             Arb.string(),
@@ -130,17 +125,21 @@ class EnemyTest : FunSpec({
     }
 
     test("An enemy should be able to be added to the turnsQueue") {
-        enemy1 = Enemy(ENEMY1_NAME, ENEMY1_WEIGHT, ENEMY1_MAXHP, ENEMY1_DEFENSE, turnsQueue)
-        enemy2 = Enemy(ENEMY2_NAME, ENEMY2_WEIGHT, ENEMY2_MAXHP, ENEMY2_DEFENSE, turnsQueue)
-        val delay = 100 * (ENEMY1_WEIGHT + ENEMY2_WEIGHT)
+        val testWeight1 = 1
+        val testWeight2 = 45
+        val testWeight3 = 20
+        enemy1 = Enemy(ENEMY1_NAME, testWeight1, ENEMY1_MAXHP, ENEMY1_DEFENSE, turnsQueue)
+        enemy2 = Enemy(ENEMY2_NAME, testWeight2, ENEMY2_MAXHP, ENEMY2_DEFENSE, turnsQueue)
+        enemy3 = Enemy(ENEMY1_NAME, testWeight3, ENEMY1_MAXHP, ENEMY1_DEFENSE, turnsQueue)
+        val delay = 100 * (testWeight1 + testWeight2 + testWeight3)
         turnsQueue.isEmpty().shouldBeTrue()
         enemy1.waitTurn()
         enemy2.waitTurn()
         withContext(Dispatchers.IO) {
             Thread.sleep(delay.toLong())
         }
-        turnsQueue.poll() shouldBe enemy2
-        turnsQueue.poll() shouldBe enemy1
+        turnsQueue.contains(enemy1).shouldBeTrue()
+        turnsQueue.contains(enemy2).shouldBeTrue()
     }
 
 
