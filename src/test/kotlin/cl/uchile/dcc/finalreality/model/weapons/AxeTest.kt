@@ -13,7 +13,19 @@ import io.kotest.property.assume
 import io.kotest.property.checkAll
 
 class AxeTest : FunSpec({
-    test("Two axes with the same parameters are equal") {
+    test("Two axes with the same parameters should be equal") {
+        checkAll(
+            Arb.string(),
+            Arb.positiveInt(100000),
+            Arb.positiveInt(100000),
+        ) {name, damage, weight ->
+            val axe1 = Axe(name, damage, weight)
+            val axe2 = Axe(name, damage, weight)
+            axe1 shouldNotBeSameInstanceAs axe2
+            axe1 shouldBe axe2
+        }
+    }
+    test("Two axes with different parameters shouldn't be equal") {
         checkAll(
             Arb.string(),
             Arb.string(),
@@ -25,11 +37,8 @@ class AxeTest : FunSpec({
             assume(name1 != name2 || damage1 != damage2 || weight1 != weight2)
             val axe1 = Axe(name1, damage1, weight1)
             val axe2 = Axe(name2, damage2, weight2)
-            val axe3 = Axe(name1, damage1, weight1)
             axe1 shouldNotBeSameInstanceAs axe2
             axe1 shouldNotBe axe2
-            axe1 shouldNotBeSameInstanceAs axe3
-            axe1 shouldBe axe3
         }
     }
 

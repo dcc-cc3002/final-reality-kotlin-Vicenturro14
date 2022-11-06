@@ -14,7 +14,8 @@ package cl.uchile.dcc.finalreality.exceptions
  * @constructor Creates a new `InvalidStatValueException` with a `description` of the
  * error.
  *
- * @author <a href="https://github.com/r8vnhill">R8V</a>
+ * @author <a href="https://github.com/Vicenturro14">Vicenturro14</a>
+ * @author Vicente Olivares
  */
 class InvalidStatValueException(description: String) :
     Exception("The required condition is not met. $description")

@@ -9,8 +9,8 @@
 package cl.uchile.dcc.finalreality.exceptions
 
 /**
- * Objeto que contiene una serie de métodos para comprobar que una condición se cumpla.
- * Si la condición no se cumple, se arroja una excepción.
+ * Object containing a series of methods to check if a condition is met.
+ * If the condition is not met, an exception is thrown.
  *
  * @author <a href="https://github.com/Vicenturro14">Vicenturro14</a>
  * @author Vicente Olivares
