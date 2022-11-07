@@ -1,7 +1,6 @@
 package cl.uchile.dcc.finalreality.model.character.player.mages
 
 import cl.uchile.dcc.finalreality.model.character.GameCharacter
-import cl.uchile.dcc.finalreality.model.character.knight
 import cl.uchile.dcc.finalreality.model.weapons.Knife
 import cl.uchile.dcc.finalreality.model.weapons.Staff
 import io.kotest.core.spec.style.FunSpec
@@ -30,8 +29,31 @@ private const val STAFF_MAGIC_DAMAGE = 50
 private val turnsQueue = LinkedBlockingQueue<GameCharacter>()
 
 class BlackMageTest : FunSpec({
-
+    // equals method tests
     test("Two black mages with the same parameters should be equal") {
+        checkAll(
+            Arb.string(),
+            Arb.positiveInt(100000),
+            Arb.nonNegativeInt(100000),
+            Arb.nonNegativeInt(1000),
+            Arb.nonNegativeInt(1000),
+            Arb.nonNegativeInt(100000)
+            ) {name, maxHp, maxMp, currentHp, currentMp, defense ->
+            assume(currentHp <= maxHp && currentMp <= maxMp)
+            blackMage1 = BlackMage(name, maxHp, maxMp, defense, turnsQueue)
+            blackMage2 = BlackMage(name, maxHp, maxMp, defense, turnsQueue)
+            blackMage1.currentHp = currentHp
+            blackMage2.currentHp = currentHp
+            blackMage1.currentMp = currentMp
+            blackMage2.currentMp = currentMp
+            staff = Staff(STAFF_NAME, STAFF_DAMAGE, STAFF_WEIGHT, STAFF_MAGIC_DAMAGE)
+            blackMage1.equip(staff)
+            blackMage2.equip(staff)
+            blackMage1 shouldNotBeSameInstanceAs blackMage2
+            blackMage1 shouldBe blackMage2
+        }
+    }
+    test("Two black mages with different parameters shouldn't be equal") {
         checkAll(
             Arb.string(),
             Arb.string(),
@@ -50,25 +72,43 @@ class BlackMageTest : FunSpec({
             assume(currentHp1 <= maxHp1 && currentHp2 <= maxHp2 && currentMp1 <= maxMp1 && currentMp2 <= maxMp2)
             blackMage1 = BlackMage(name1, maxHp1, maxMp1, defense1, turnsQueue)
             blackMage2 = BlackMage(name2, maxHp2, maxMp2, defense2, turnsQueue)
-            blackMage3 = BlackMage(name1, maxHp1, maxMp1, defense1, turnsQueue)
             blackMage1.currentHp = currentHp1
             blackMage2.currentHp = currentHp2
-            blackMage3.currentHp = currentHp1
             blackMage1.currentMp = currentMp1
             blackMage2.currentMp = currentMp2
-            blackMage3.currentMp = currentMp1
             staff = Staff(STAFF_NAME, STAFF_DAMAGE, STAFF_WEIGHT, STAFF_MAGIC_DAMAGE)
             blackMage1.equip(staff)
             blackMage2.equip(staff)
-            blackMage3.equip(staff)
             blackMage1 shouldNotBeSameInstanceAs blackMage2
             blackMage1 shouldNotBe blackMage2
-            blackMage1 shouldNotBeSameInstanceAs blackMage3
-            blackMage1 shouldBe blackMage3
         }
     }
 
+    // hashCode method tests
     test("Two equal black mages should have the same hashCode") {
+        checkAll(
+            Arb.string(),
+            Arb.positiveInt(100000),
+            Arb.nonNegativeInt(100000),
+            Arb.nonNegativeInt(1000),
+            Arb.nonNegativeInt(1000),
+            Arb.nonNegativeInt(100000)
+        ) {name, maxHp, maxMp, currentHp, currentMp, defense ->
+            assume(currentHp <= maxHp && currentMp <= maxMp)
+            blackMage1 = BlackMage(name, maxHp, maxMp, defense, turnsQueue)
+            blackMage2 = BlackMage(name, maxHp, maxMp, defense, turnsQueue)
+            blackMage1.currentHp = currentHp
+            blackMage2.currentHp = currentHp
+            blackMage1.currentMp = currentMp
+            blackMage2.currentMp = currentMp
+            staff = Staff(STAFF_NAME, STAFF_DAMAGE, STAFF_WEIGHT, STAFF_MAGIC_DAMAGE)
+            blackMage1.equip(staff)
+            blackMage2.equip(staff)
+            blackMage1 shouldNotBeSameInstanceAs blackMage2
+            blackMage1.shouldHaveSameHashCodeAs(blackMage2)
+        }
+    }
+    test("Two different black mages shouldn't have the same hashCode") {
         checkAll(
             Arb.string(),
             Arb.string(),
@@ -87,24 +127,19 @@ class BlackMageTest : FunSpec({
             assume(currentHp1 <= maxHp1 && currentHp2 <= maxHp2 && currentMp1 <= maxMp1 && currentMp2 <= maxMp2)
             blackMage1 = BlackMage(name1, maxHp1, maxMp1, defense1, turnsQueue)
             blackMage2 = BlackMage(name2, maxHp2, maxMp2, defense2, turnsQueue)
-            blackMage3 = BlackMage(name1, maxHp1, maxMp1, defense1, turnsQueue)
             blackMage1.currentHp = currentHp1
             blackMage2.currentHp = currentHp2
-            blackMage3.currentHp = currentHp1
             blackMage1.currentMp = currentMp1
             blackMage2.currentMp = currentMp2
-            blackMage3.currentMp = currentMp1
             staff = Staff(STAFF_NAME, STAFF_DAMAGE, STAFF_WEIGHT, STAFF_MAGIC_DAMAGE)
             blackMage1.equip(staff)
             blackMage2.equip(staff)
-            blackMage3.equip(staff)
             blackMage1 shouldNotBeSameInstanceAs blackMage2
             blackMage1.shouldNotHaveSameHashCodeAs(blackMage2)
-            blackMage1 shouldNotBeSameInstanceAs blackMage3
-            blackMage1.shouldHaveSameHashCodeAs(blackMage3)
         }
     }
 
+    // toString method test
     test("The string representation of a black mage should be correct") {
         checkAll(
             Arb.string(),

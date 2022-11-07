@@ -19,7 +19,6 @@ import java.util.concurrent.LinkedBlockingQueue
 
 private lateinit var knight1: Knight
 private lateinit var knight2: Knight
-private lateinit var knight3: Knight
 private lateinit var axe: Axe
 private lateinit var sword: Sword
 private const val AXE_NAME = "testAxe"
@@ -28,7 +27,27 @@ private const val AXE_WEIGHT = 30
 private val turnsQueue = LinkedBlockingQueue<GameCharacter>()
 
 class KnightTest : FunSpec({
+    // equals method tests
     test("Two knights with the same parameters are equal") {
+        checkAll(
+            Arb.string(),
+            Arb.positiveInt(100000),
+            Arb.positiveInt(100000),
+            Arb.nonNegativeInt(10000)
+        ) {name, maxHp, defense, currentHp ->
+            assume(maxHp >= currentHp)
+            knight1 = Knight(name, maxHp, defense, turnsQueue)
+            knight2 = Knight(name, maxHp, defense, turnsQueue)
+            axe = Axe(AXE_NAME, AXE_DAMAGE, AXE_WEIGHT)
+            knight1.equip(axe)
+            knight2.equip(axe)
+            knight1.currentHp = currentHp
+            knight2.currentHp = currentHp
+            knight1 shouldNotBeSameInstanceAs knight2
+            knight1 shouldBe knight2
+        }
+    }
+    test("Two knights with different parameters aren't equal") {
         checkAll(
             Arb.string(),
             Arb.string(),
@@ -42,21 +61,37 @@ class KnightTest : FunSpec({
             assume(maxHp1 >= currentHp1 && maxHp2 >= currentHp2)
             knight1 = Knight(name1, maxHp1, defense1, turnsQueue)
             knight2 = Knight(name2, maxHp2, defense2, turnsQueue)
-            knight3 = Knight(name1, maxHp1, defense1, turnsQueue)
             axe = Axe(AXE_NAME, AXE_DAMAGE, AXE_WEIGHT)
             knight1.equip(axe)
             knight2.equip(axe)
-            knight3.equip(axe)
             knight1.currentHp = currentHp1
             knight2.currentHp = currentHp2
-            knight3.currentHp = currentHp1
             knight1 shouldNotBeSameInstanceAs knight2
             knight1 shouldNotBe knight2
-            knight1 shouldNotBeSameInstanceAs knight3
-            knight1 shouldBe knight3
         }
     }
+
+    // hashCode method tests
     test("Two equal knights should have the same hashCode") {
+        checkAll(
+            Arb.string(),
+            Arb.positiveInt(100000),
+            Arb.positiveInt(100000),
+            Arb.nonNegativeInt(10000)
+        ) { name, maxHp, defense, currentHp ->
+            assume(maxHp >= currentHp)
+            knight1 = Knight(name, maxHp, defense, turnsQueue)
+            knight2 = Knight(name, maxHp, defense, turnsQueue)
+            axe = Axe(AXE_NAME, AXE_DAMAGE, AXE_WEIGHT)
+            knight1.equip(axe)
+            knight2.equip(axe)
+            knight1.currentHp = currentHp
+            knight2.currentHp = currentHp
+            knight1 shouldNotBeSameInstanceAs knight2
+            knight1.shouldHaveSameHashCodeAs(knight2)
+        }
+    }
+    test("Two different knights shouldn't have the same hashCode") {
         checkAll(
             Arb.string(),
             Arb.string(),
@@ -70,20 +105,17 @@ class KnightTest : FunSpec({
             assume(maxHp1 >= currentHp1 && maxHp2 >= currentHp2)
             knight1 = Knight(name1, maxHp1, defense1, turnsQueue)
             knight2 = Knight(name2, maxHp2, defense2, turnsQueue)
-            knight3 = Knight(name1, maxHp1, defense1, turnsQueue)
             axe = Axe(AXE_NAME, AXE_DAMAGE, AXE_WEIGHT)
             knight1.equip(axe)
             knight2.equip(axe)
-            knight3.equip(axe)
             knight1.currentHp = currentHp1
             knight2.currentHp = currentHp2
-            knight3.currentHp = currentHp1
             knight1 shouldNotBeSameInstanceAs knight2
             knight1.shouldNotHaveSameHashCodeAs(knight2)
-            knight1 shouldNotBeSameInstanceAs knight3
-            knight1.shouldHaveSameHashCodeAs(knight3)
         }
     }
+
+    // toString method test
     test("The string representation of a knight should be correct") {
         checkAll(
             Arb.string(),

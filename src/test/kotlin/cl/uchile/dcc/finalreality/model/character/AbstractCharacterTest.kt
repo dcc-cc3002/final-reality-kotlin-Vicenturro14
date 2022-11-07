@@ -34,58 +34,63 @@ private const val MAGE_MAXMP = 100
 private val turnsQueue = LinkedBlockingQueue<GameCharacter>()
 
 class AbstractCharacterTest : FunSpec({
-
+    // maxHp parameter tests
     test("The maxHp of a character should be at least 1") {
         checkAll(
-            Arb.positiveInt(100000),
-            Arb.nonPositiveInt(-100000)
-        ) {maxHp1, maxHp2 ->
+            Arb.positiveInt(100000)
+        ) {maxHp ->
             shouldNotThrow<InvalidStatValueException> {
-                Enemy(CHARACTER_NAME, ENEMY_WEIGHT, maxHp1, CHARACTER_DEFENSE, turnsQueue)
-            }
-            shouldNotThrow<InvalidStatValueException> {
-                Engineer(CHARACTER_NAME, maxHp1, CHARACTER_DEFENSE, turnsQueue)
+                Enemy(CHARACTER_NAME, ENEMY_WEIGHT, maxHp, CHARACTER_DEFENSE, turnsQueue)
             }
             shouldNotThrow<InvalidStatValueException> {
-                Knight(CHARACTER_NAME, maxHp1, CHARACTER_DEFENSE, turnsQueue)
+                Engineer(CHARACTER_NAME, maxHp, CHARACTER_DEFENSE, turnsQueue)
             }
             shouldNotThrow<InvalidStatValueException> {
-                Thief(CHARACTER_NAME, maxHp1, CHARACTER_DEFENSE, turnsQueue)
+                Knight(CHARACTER_NAME, maxHp, CHARACTER_DEFENSE, turnsQueue)
             }
             shouldNotThrow<InvalidStatValueException> {
-                BlackMage(CHARACTER_NAME, maxHp1, MAGE_MAXMP, CHARACTER_DEFENSE, turnsQueue)
+                Thief(CHARACTER_NAME, maxHp, CHARACTER_DEFENSE, turnsQueue)
             }
             shouldNotThrow<InvalidStatValueException> {
-                WhiteMage(CHARACTER_NAME, maxHp1, MAGE_MAXMP, CHARACTER_DEFENSE, turnsQueue)
+                BlackMage(CHARACTER_NAME, maxHp, MAGE_MAXMP, CHARACTER_DEFENSE, turnsQueue)
             }
-
-            shouldThrow<InvalidStatValueException> {
-                Enemy(CHARACTER_NAME, ENEMY_WEIGHT, maxHp2, CHARACTER_DEFENSE, turnsQueue)
-            }
-            shouldThrow<InvalidStatValueException> {
-                Engineer(CHARACTER_NAME, maxHp2, CHARACTER_DEFENSE, turnsQueue)
-            }
-            shouldThrow<InvalidStatValueException> {
-                Knight(CHARACTER_NAME, maxHp2, CHARACTER_DEFENSE, turnsQueue)
-            }
-            shouldThrow<InvalidStatValueException> {
-                Thief(CHARACTER_NAME, maxHp2, CHARACTER_DEFENSE, turnsQueue)
-            }
-            shouldThrow<InvalidStatValueException> {
-                BlackMage(CHARACTER_NAME, maxHp2, MAGE_MAXMP, CHARACTER_DEFENSE, turnsQueue)
-            }
-            shouldThrow<InvalidStatValueException> {
-                WhiteMage(CHARACTER_NAME, maxHp2, MAGE_MAXMP, CHARACTER_DEFENSE, turnsQueue)
+            shouldNotThrow<InvalidStatValueException> {
+                WhiteMage(CHARACTER_NAME, maxHp, MAGE_MAXMP, CHARACTER_DEFENSE, turnsQueue)
             }
         }
     }
+    test("An exception should be thrown when the maxHp of a character is less than 1") {
+        checkAll(
+            Arb.nonPositiveInt(-100000)
+        ) {maxHp ->
+            shouldThrow<InvalidStatValueException> {
+                Enemy(CHARACTER_NAME, ENEMY_WEIGHT, maxHp, CHARACTER_DEFENSE, turnsQueue)
+            }
+            shouldThrow<InvalidStatValueException> {
+                Engineer(CHARACTER_NAME, maxHp, CHARACTER_DEFENSE, turnsQueue)
+            }
+            shouldThrow<InvalidStatValueException> {
+                Knight(CHARACTER_NAME, maxHp, CHARACTER_DEFENSE, turnsQueue)
+            }
+            shouldThrow<InvalidStatValueException> {
+                Thief(CHARACTER_NAME, maxHp, CHARACTER_DEFENSE, turnsQueue)
+            }
+            shouldThrow<InvalidStatValueException> {
+                BlackMage(CHARACTER_NAME, maxHp, MAGE_MAXMP, CHARACTER_DEFENSE, turnsQueue)
+            }
+            shouldThrow<InvalidStatValueException> {
+                WhiteMage(CHARACTER_NAME, maxHp, MAGE_MAXMP, CHARACTER_DEFENSE, turnsQueue)
+            }
+        }
+    }
+
+    // currentHp property tests
     test("The currentHp of a character should be at least 0") {
         checkAll(
             Arb.positiveInt(100000),
-            Arb.nonNegativeInt(10000),
-            Arb.negativeInt(-100000)
-        ) {maxHp, currentHp1, currentHp2 ->
-            assume(currentHp1 <= maxHp)
+            Arb.nonNegativeInt(10000)
+        ) {maxHp, currentHp ->
+            assume(currentHp <= maxHp)
             enemy = Enemy(CHARACTER_NAME, ENEMY_WEIGHT, maxHp, CHARACTER_DEFENSE, turnsQueue)
             engineer = Engineer(CHARACTER_NAME, maxHp, CHARACTER_DEFENSE, turnsQueue)
             knight = Knight(CHARACTER_NAME, maxHp, CHARACTER_DEFENSE, turnsQueue)
@@ -93,50 +98,62 @@ class AbstractCharacterTest : FunSpec({
             blackMage = BlackMage(CHARACTER_NAME, maxHp, MAGE_MAXMP, CHARACTER_DEFENSE, turnsQueue)
             whiteMage = WhiteMage(CHARACTER_NAME, maxHp, MAGE_MAXMP, CHARACTER_DEFENSE, turnsQueue)
             shouldNotThrowUnit<InvalidStatValueException> {
-                enemy.currentHp = currentHp1
+                enemy.currentHp = currentHp
             }
             shouldNotThrowUnit<InvalidStatValueException> {
-                engineer.currentHp = currentHp1
+                engineer.currentHp = currentHp
             }
             shouldNotThrowUnit<InvalidStatValueException> {
-                knight.currentHp = currentHp1
+                knight.currentHp = currentHp
             }
             shouldNotThrowUnit<InvalidStatValueException> {
-                thief.currentHp = currentHp1
+                thief.currentHp = currentHp
             }
             shouldNotThrowUnit<InvalidStatValueException> {
-                blackMage.currentHp = currentHp1
+                blackMage.currentHp = currentHp
             }
             shouldNotThrowUnit<InvalidStatValueException> {
-                whiteMage.currentHp = currentHp1
+                whiteMage.currentHp = currentHp
             }
+        }
+    }
+    test("An exception should be thrown when the maxHp of a character is less than 0") {
+        checkAll(
+            Arb.positiveInt(100000),
+            Arb.negativeInt(-100000)
+        ) {maxHp, currentHp ->
+            enemy = Enemy(CHARACTER_NAME, ENEMY_WEIGHT, maxHp, CHARACTER_DEFENSE, turnsQueue)
+            engineer = Engineer(CHARACTER_NAME, maxHp, CHARACTER_DEFENSE, turnsQueue)
+            knight = Knight(CHARACTER_NAME, maxHp, CHARACTER_DEFENSE, turnsQueue)
+            thief = Thief(CHARACTER_NAME, maxHp, CHARACTER_DEFENSE, turnsQueue)
+            blackMage = BlackMage(CHARACTER_NAME, maxHp, MAGE_MAXMP, CHARACTER_DEFENSE, turnsQueue)
+            whiteMage = WhiteMage(CHARACTER_NAME, maxHp, MAGE_MAXMP, CHARACTER_DEFENSE, turnsQueue)
 
             shouldThrowUnit<InvalidStatValueException> {
-                enemy.currentHp = currentHp2
+                enemy.currentHp = currentHp
             }
             shouldThrowUnit<InvalidStatValueException> {
-                engineer.currentHp = currentHp2
+                engineer.currentHp = currentHp
             }
             shouldThrowUnit<InvalidStatValueException> {
-                knight.currentHp = currentHp2
+                knight.currentHp = currentHp
             }
             shouldThrowUnit<InvalidStatValueException> {
-                thief.currentHp = currentHp2
+                thief.currentHp = currentHp
             }
             shouldThrowUnit<InvalidStatValueException> {
-                blackMage.currentHp = currentHp2
+                blackMage.currentHp = currentHp
             }
             shouldThrowUnit<InvalidStatValueException> {
-                whiteMage.currentHp = currentHp2
+                whiteMage.currentHp = currentHp
             }
         }
     }
     test("The currentHp of a character should be at most maxHp") {
         checkAll(
             Arb.positiveInt(100000),
-            Arb.nonNegativeInt(10000),
-            Arb.nonNegativeInt(100000)
-        ) {maxHp, currentHp1, currentHpAux ->
+            Arb.nonNegativeInt(10000)
+        ) {maxHp, currentHp1 ->
             assume(currentHp1 <= maxHp)
             enemy = Enemy(CHARACTER_NAME, ENEMY_WEIGHT, maxHp, CHARACTER_DEFENSE, turnsQueue)
             engineer = Engineer(CHARACTER_NAME, maxHp, CHARACTER_DEFENSE, turnsQueue)
@@ -162,50 +179,69 @@ class AbstractCharacterTest : FunSpec({
             shouldNotThrowUnit<InvalidStatValueException> {
                 whiteMage.currentHp = currentHp1
             }
-
-            val currentHp2 = maxHp + currentHpAux + 1
+        }
+    }
+    test("An exception should be thrown when the currentHp of a character is greater than maxHP"){
+        checkAll(
+            Arb.positiveInt(100000),
+            Arb.nonNegativeInt(100000)
+        ) {maxHp, currentHpAux ->
+            enemy = Enemy(CHARACTER_NAME, ENEMY_WEIGHT, maxHp, CHARACTER_DEFENSE, turnsQueue)
+            engineer = Engineer(CHARACTER_NAME, maxHp, CHARACTER_DEFENSE, turnsQueue)
+            knight = Knight(CHARACTER_NAME, maxHp, CHARACTER_DEFENSE, turnsQueue)
+            thief = Thief(CHARACTER_NAME, maxHp, CHARACTER_DEFENSE, turnsQueue)
+            blackMage = BlackMage(CHARACTER_NAME, maxHp, MAGE_MAXMP, CHARACTER_DEFENSE, turnsQueue)
+            whiteMage = WhiteMage(CHARACTER_NAME, maxHp, MAGE_MAXMP, CHARACTER_DEFENSE, turnsQueue)
+            val currentHp = maxHp + currentHpAux + 1
             /* The value assigned to currentHp is currentHpAux + maxHp + 1 to ensure that
             the assignment is out of range. */
             shouldThrowUnit<InvalidStatValueException> {
-                enemy.currentHp = currentHp2
+                enemy.currentHp = currentHp
             }
             shouldThrowUnit<InvalidStatValueException> {
-                engineer.currentHp = currentHp2
+                engineer.currentHp = currentHp
             }
             shouldThrowUnit<InvalidStatValueException> {
-                knight.currentHp = currentHp2
+                knight.currentHp = currentHp
             }
             shouldThrowUnit<InvalidStatValueException> {
-                thief.currentHp = currentHp2
+                thief.currentHp = currentHp
             }
             shouldThrowUnit<InvalidStatValueException> {
-                blackMage.currentHp = currentHp2
+                blackMage.currentHp = currentHp
             }
             shouldThrowUnit<InvalidStatValueException> {
-                whiteMage.currentHp = currentHp2
+                whiteMage.currentHp = currentHp
             }
         }
     }
+
+    // defense parameter tests
     test("The defense of a character should be al least 0") {
         checkAll(
-            Arb.nonNegativeInt(100000),
-            Arb.negativeInt(-100000)
-        ) {defense1, defense2 ->
+            Arb.nonNegativeInt(100000)
+        ) {defense ->
             shouldNotThrow<InvalidStatValueException> {
-                Enemy(CHARACTER_NAME, ENEMY_WEIGHT, CHARACTER_MAXHP, defense1, turnsQueue)
-                Engineer(CHARACTER_NAME, CHARACTER_MAXHP, defense1, turnsQueue)
-                Knight(CHARACTER_NAME, CHARACTER_MAXHP, defense1, turnsQueue)
-                Thief(CHARACTER_NAME, CHARACTER_MAXHP, defense1, turnsQueue)
-                BlackMage(CHARACTER_NAME, CHARACTER_MAXHP, MAGE_MAXMP, defense1, turnsQueue)
-                WhiteMage(CHARACTER_NAME, CHARACTER_MAXHP, MAGE_MAXMP, defense1, turnsQueue)
+                Enemy(CHARACTER_NAME, ENEMY_WEIGHT, CHARACTER_MAXHP, defense, turnsQueue)
+                Engineer(CHARACTER_NAME, CHARACTER_MAXHP, defense, turnsQueue)
+                Knight(CHARACTER_NAME, CHARACTER_MAXHP, defense, turnsQueue)
+                Thief(CHARACTER_NAME, CHARACTER_MAXHP, defense, turnsQueue)
+                BlackMage(CHARACTER_NAME, CHARACTER_MAXHP, MAGE_MAXMP, defense, turnsQueue)
+                WhiteMage(CHARACTER_NAME, CHARACTER_MAXHP, MAGE_MAXMP, defense, turnsQueue)
             }
+        }
+    }
+    test("An exception should be thrown when the defense of a character is less than 0") {
+        checkAll(
+            Arb.negativeInt(-100000)
+        ) {defense ->
             shouldThrow<InvalidStatValueException> {
-                Enemy(CHARACTER_NAME, ENEMY_WEIGHT, CHARACTER_MAXHP, defense2, turnsQueue)
-                Engineer(CHARACTER_NAME, CHARACTER_MAXHP, defense2, turnsQueue)
-                Knight(CHARACTER_NAME, CHARACTER_MAXHP, defense2, turnsQueue)
-                Thief(CHARACTER_NAME, CHARACTER_MAXHP, defense2, turnsQueue)
-                BlackMage(CHARACTER_NAME, CHARACTER_MAXHP, MAGE_MAXMP, defense2, turnsQueue)
-                WhiteMage(CHARACTER_NAME, CHARACTER_MAXHP, MAGE_MAXMP, defense2, turnsQueue)
+                Enemy(CHARACTER_NAME, ENEMY_WEIGHT, CHARACTER_MAXHP, defense, turnsQueue)
+                Engineer(CHARACTER_NAME, CHARACTER_MAXHP, defense, turnsQueue)
+                Knight(CHARACTER_NAME, CHARACTER_MAXHP, defense, turnsQueue)
+                Thief(CHARACTER_NAME, CHARACTER_MAXHP, defense, turnsQueue)
+                BlackMage(CHARACTER_NAME, CHARACTER_MAXHP, MAGE_MAXMP, defense, turnsQueue)
+                WhiteMage(CHARACTER_NAME, CHARACTER_MAXHP, MAGE_MAXMP, defense, turnsQueue)
             }
         }
     }

@@ -18,7 +18,6 @@ import java.util.concurrent.LinkedBlockingQueue
 
 private lateinit var whiteMage1: WhiteMage
 private lateinit var whiteMage2: WhiteMage
-private lateinit var whiteMage3: WhiteMage
 private lateinit var staff: Staff
 private const val STAFF_NAME = "testStaff"
 private const val STAFF_DAMAGE = 10
@@ -27,8 +26,31 @@ private const val STAFF_MAGIC_DAMAGE = 50
 private val turnsQueue = LinkedBlockingQueue<GameCharacter>()
 
 class WhiteMageTest : FunSpec({
-
+    // equals method tests
     test("Two white mages with the same parameters should be equal") {
+        checkAll(
+            Arb.string(),
+            Arb.positiveInt(100000),
+            Arb.nonNegativeInt(100000),
+            Arb.nonNegativeInt(1000),
+            Arb.nonNegativeInt(1000),
+            Arb.nonNegativeInt(100000)
+            ) {name, maxHp, maxMp, currentHp, currentMp, defense ->
+            assume(currentHp <= maxHp && currentMp <= maxMp)
+            whiteMage1 = WhiteMage(name, maxHp, maxMp, defense, turnsQueue)
+            whiteMage2 = WhiteMage(name, maxHp, maxMp, defense, turnsQueue)
+            whiteMage1.currentHp = currentHp
+            whiteMage2.currentHp = currentHp
+            whiteMage1.currentMp = currentMp
+            whiteMage2.currentMp = currentMp
+            staff = Staff(STAFF_NAME, STAFF_DAMAGE, STAFF_WEIGHT, STAFF_MAGIC_DAMAGE)
+            whiteMage1.equip(staff)
+            whiteMage2.equip(staff)
+            whiteMage1 shouldNotBeSameInstanceAs whiteMage2
+            whiteMage1 shouldBe whiteMage2
+        }
+    }
+    test("Two white mages with different parameters shouldn't be equal") {
         checkAll(
             Arb.string(),
             Arb.string(),
@@ -47,25 +69,43 @@ class WhiteMageTest : FunSpec({
             assume(currentHp1 <= maxHp1 && currentHp2 <= maxHp2 && currentMp1 <= maxMp1 && currentMp2 <= maxMp2)
             whiteMage1 = WhiteMage(name1, maxHp1, maxMp1, defense1, turnsQueue)
             whiteMage2 = WhiteMage(name2, maxHp2, maxMp2, defense2, turnsQueue)
-            whiteMage3 = WhiteMage(name1, maxHp1, maxMp1, defense1, turnsQueue)
             whiteMage1.currentHp = currentHp1
             whiteMage2.currentHp = currentHp2
-            whiteMage3.currentHp = currentHp1
             whiteMage1.currentMp = currentMp1
             whiteMage2.currentMp = currentMp2
-            whiteMage3.currentMp = currentMp1
             staff = Staff(STAFF_NAME, STAFF_DAMAGE, STAFF_WEIGHT, STAFF_MAGIC_DAMAGE)
             whiteMage1.equip(staff)
             whiteMage2.equip(staff)
-            whiteMage3.equip(staff)
             whiteMage1 shouldNotBeSameInstanceAs whiteMage2
             whiteMage1 shouldNotBe whiteMage2
-            whiteMage1 shouldNotBeSameInstanceAs whiteMage3
-            whiteMage1 shouldBe whiteMage3
         }
     }
 
+    // hashCode method tests
     test("Two equal white mages should have the same hashCode") {
+        checkAll(
+            Arb.string(),
+            Arb.positiveInt(100000),
+            Arb.nonNegativeInt(100000),
+            Arb.nonNegativeInt(1000),
+            Arb.nonNegativeInt(1000),
+            Arb.nonNegativeInt(100000)
+        ) {name, maxHp, maxMp, currentHp, currentMp, defense ->
+            assume(currentHp <= maxHp && currentMp <= maxMp)
+            whiteMage1 = WhiteMage(name, maxHp, maxMp, defense, turnsQueue)
+            whiteMage2 = WhiteMage(name, maxHp, maxMp, defense, turnsQueue)
+            whiteMage1.currentHp = currentHp
+            whiteMage2.currentHp = currentHp
+            whiteMage1.currentMp = currentMp
+            whiteMage2.currentMp = currentMp
+            staff = Staff(STAFF_NAME, STAFF_DAMAGE, STAFF_WEIGHT, STAFF_MAGIC_DAMAGE)
+            whiteMage1.equip(staff)
+            whiteMage2.equip(staff)
+            whiteMage1 shouldNotBeSameInstanceAs whiteMage2
+            whiteMage1.shouldHaveSameHashCodeAs(whiteMage2)
+        }
+    }
+    test("Two different white mages shouldn't have the same hashCode") {
         checkAll(
             Arb.string(),
             Arb.string(),
@@ -84,24 +124,19 @@ class WhiteMageTest : FunSpec({
             assume(currentHp1 <= maxHp1 && currentHp2 <= maxHp2 && currentMp1 <= maxMp1 && currentMp2 <= maxMp2)
             whiteMage1 = WhiteMage(name1, maxHp1, maxMp1, defense1, turnsQueue)
             whiteMage2 = WhiteMage(name2, maxHp2, maxMp2, defense2, turnsQueue)
-            whiteMage3 = WhiteMage(name1, maxHp1, maxMp1, defense1, turnsQueue)
             whiteMage1.currentHp = currentHp1
             whiteMage2.currentHp = currentHp2
-            whiteMage3.currentHp = currentHp1
             whiteMage1.currentMp = currentMp1
             whiteMage2.currentMp = currentMp2
-            whiteMage3.currentMp = currentMp1
             staff = Staff(STAFF_NAME, STAFF_DAMAGE, STAFF_WEIGHT, STAFF_MAGIC_DAMAGE)
             whiteMage1.equip(staff)
             whiteMage2.equip(staff)
-            whiteMage3.equip(staff)
             whiteMage1 shouldNotBeSameInstanceAs whiteMage2
             whiteMage1.shouldNotHaveSameHashCodeAs(whiteMage2)
-            whiteMage1 shouldNotBeSameInstanceAs whiteMage3
-            whiteMage1.shouldHaveSameHashCodeAs(whiteMage3)
         }
     }
 
+    // toString method test
     test("The string representation of a white mage should be correct") {
         checkAll(
             Arb.string(),

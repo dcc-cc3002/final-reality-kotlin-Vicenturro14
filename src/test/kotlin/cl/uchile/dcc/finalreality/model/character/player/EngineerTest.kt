@@ -19,7 +19,6 @@ import java.util.concurrent.LinkedBlockingQueue
 
 private lateinit var engineer1: Engineer
 private lateinit var engineer2: Engineer
-private lateinit var engineer3: Engineer
 private lateinit var axe: Axe
 private lateinit var bow: Bow
 private const val AXE_NAME = "testAxe"
@@ -28,7 +27,27 @@ private const val AXE_WEIGHT = 30
 private val turnsQueue = LinkedBlockingQueue<GameCharacter>()
 
 class EngineerTest : FunSpec({
+    // equals method tests
     test("Two engineers with the same parameters are equal") {
+        checkAll(
+            Arb.string(),
+            Arb.positiveInt(100000),
+            Arb.positiveInt(100000),
+            Arb.nonNegativeInt(10000)
+        ) {name, maxHp, defense, currentHp ->
+            assume(maxHp >= currentHp)
+            engineer1 = Engineer(name, maxHp, defense, turnsQueue)
+            engineer2 = Engineer(name, maxHp, defense, turnsQueue)
+            axe = Axe(AXE_NAME, AXE_DAMAGE, AXE_WEIGHT)
+            engineer1.equip(axe)
+            engineer2.equip(axe)
+            engineer1.currentHp = currentHp
+            engineer2.currentHp = currentHp
+            engineer1 shouldNotBeSameInstanceAs engineer2
+            engineer1 shouldBe engineer2
+        }
+    }
+    test("Two engineers with different parameters aren't equal") {
         checkAll(
             Arb.string(),
             Arb.string(),
@@ -42,21 +61,37 @@ class EngineerTest : FunSpec({
             assume(maxHp1 >= currentHp1 && maxHp2 >= currentHp2)
             engineer1 = Engineer(name1, maxHp1, defense1, turnsQueue)
             engineer2 = Engineer(name2, maxHp2, defense2, turnsQueue)
-            engineer3 = Engineer(name1, maxHp1, defense1, turnsQueue)
             axe = Axe(AXE_NAME, AXE_DAMAGE, AXE_WEIGHT)
             engineer1.equip(axe)
             engineer2.equip(axe)
-            engineer3.equip(axe)
             engineer1.currentHp = currentHp1
             engineer2.currentHp = currentHp2
-            engineer3.currentHp = currentHp1
             engineer1 shouldNotBeSameInstanceAs engineer2
             engineer1 shouldNotBe engineer2
-            engineer1 shouldNotBeSameInstanceAs engineer3
-            engineer1 shouldBe engineer3
         }
     }
+
+    // hashCode method tests
     test("Two equal engineers should have the same hashCode") {
+        checkAll(
+            Arb.string(),
+            Arb.positiveInt(100000),
+            Arb.positiveInt(100000),
+            Arb.nonNegativeInt(10000)
+        ) { name, maxHp, defense, currentHp ->
+            assume(maxHp >= currentHp)
+            engineer1 = Engineer(name, maxHp, defense, turnsQueue)
+            engineer2 = Engineer(name, maxHp, defense, turnsQueue)
+            axe = Axe(AXE_NAME, AXE_DAMAGE, AXE_WEIGHT)
+            engineer1.equip(axe)
+            engineer2.equip(axe)
+            engineer1.currentHp = currentHp
+            engineer2.currentHp = currentHp
+            engineer1 shouldNotBeSameInstanceAs engineer2
+            engineer1.shouldHaveSameHashCodeAs(engineer2)
+        }
+    }
+    test("Two different engineers shouldn't have the same hashCode") {
         checkAll(
             Arb.string(),
             Arb.string(),
@@ -70,20 +105,17 @@ class EngineerTest : FunSpec({
             assume(maxHp1 >= currentHp1 && maxHp2 >= currentHp2)
             engineer1 = Engineer(name1, maxHp1, defense1, turnsQueue)
             engineer2 = Engineer(name2, maxHp2, defense2, turnsQueue)
-            engineer3 = Engineer(name1, maxHp1, defense1, turnsQueue)
             axe = Axe(AXE_NAME, AXE_DAMAGE, AXE_WEIGHT)
             engineer1.equip(axe)
             engineer2.equip(axe)
-            engineer3.equip(axe)
             engineer1.currentHp = currentHp1
             engineer2.currentHp = currentHp2
-            engineer3.currentHp = currentHp1
             engineer1 shouldNotBeSameInstanceAs engineer2
             engineer1.shouldNotHaveSameHashCodeAs(engineer2)
-            engineer1 shouldNotBeSameInstanceAs engineer3
-            engineer1.shouldHaveSameHashCodeAs(engineer3)
         }
     }
+
+    // toString method test
     test("The string representation of an engineer should be correct") {
         checkAll(
             Arb.string(),
