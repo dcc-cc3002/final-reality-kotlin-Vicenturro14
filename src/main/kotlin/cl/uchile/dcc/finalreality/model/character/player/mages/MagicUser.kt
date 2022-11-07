@@ -1,4 +1,4 @@
-package cl.uchile.dcc.finalreality.model.character.player
+package cl.uchile.dcc.finalreality.model.character.player.mages
 
 /**
  * A magic character controlled by the user.

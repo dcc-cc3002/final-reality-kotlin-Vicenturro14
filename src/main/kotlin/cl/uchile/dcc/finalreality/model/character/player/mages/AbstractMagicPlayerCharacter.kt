@@ -3,7 +3,6 @@ package cl.uchile.dcc.finalreality.model.character.player.mages
 import cl.uchile.dcc.finalreality.exceptions.Require
 import cl.uchile.dcc.finalreality.model.character.GameCharacter
 import cl.uchile.dcc.finalreality.model.character.player.AbstractPlayerCharacter
-import cl.uchile.dcc.finalreality.model.character.player.MagicUser
 import java.util.concurrent.BlockingQueue
 
 /**

@@ -8,6 +8,7 @@
 package cl.uchile.dcc.finalreality.model.character.player
 
 import cl.uchile.dcc.finalreality.model.character.GameCharacter
+import cl.uchile.dcc.finalreality.model.weapons.Weapon
 import java.util.Objects
 import java.util.concurrent.BlockingQueue
 
@@ -59,4 +60,8 @@ class Thief(
         "defense = $defense, " +
         "equippedWeapon = ${this.equippedWeapon}" +
         ")"
+
+    override fun equip(weapon: Weapon) {
+        weapon.equipToThief(this)
+    }
 }

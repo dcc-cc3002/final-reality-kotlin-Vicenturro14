@@ -16,12 +16,14 @@ import cl.uchile.dcc.finalreality.model.weapons.Weapon
  * @author Vicente Olivares
  */
 interface PlayerCharacter {
+    var equippedWeapon: Weapon
 
     /**
-     * Equips a [Weapon] to the character.
-     *
+     * Equips a [Weapon] to the character only if the character can be equipped with the class of the weapon.
+     * If the character can't be equipped with the weapon, an exception will be thrown.
      * @param weapon
      *   The weapon that is going to be equipped to a [PlayerCharacter].
      */
     fun equip(weapon: Weapon)
+
 }

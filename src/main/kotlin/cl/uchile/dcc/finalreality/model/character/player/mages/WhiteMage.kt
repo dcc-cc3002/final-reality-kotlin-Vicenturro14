@@ -8,6 +8,7 @@
 package cl.uchile.dcc.finalreality.model.character.player.mages
 
 import cl.uchile.dcc.finalreality.model.character.GameCharacter
+import cl.uchile.dcc.finalreality.model.weapons.Weapon
 import java.util.Objects
 import java.util.concurrent.BlockingQueue
 
@@ -68,4 +69,8 @@ class WhiteMage(
         "defense = $defense, " +
         "equippedWeapon = ${this.equippedWeapon}" +
         ")"
+
+    override fun equip(weapon: Weapon) {
+        weapon.equipToWhiteMage(this)
+    }
 }

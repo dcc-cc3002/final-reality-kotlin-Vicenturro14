@@ -1,8 +1,14 @@
 package cl.uchile.dcc.finalreality.model.character.player.mages
 
+import cl.uchile.dcc.finalreality.exceptions.UnableToEquipException
 import cl.uchile.dcc.finalreality.model.character.GameCharacter
+import cl.uchile.dcc.finalreality.model.weapons.Axe
+import cl.uchile.dcc.finalreality.model.weapons.Bow
 import cl.uchile.dcc.finalreality.model.weapons.Knife
 import cl.uchile.dcc.finalreality.model.weapons.Staff
+import cl.uchile.dcc.finalreality.model.weapons.Sword
+import io.kotest.assertions.throwables.shouldNotThrow
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
@@ -19,9 +25,15 @@ import java.util.concurrent.LinkedBlockingQueue
 
 private lateinit var blackMage1: BlackMage
 private lateinit var blackMage2: BlackMage
-private lateinit var blackMage3: BlackMage
-private lateinit var staff: Staff
+private lateinit var axe: Axe
+private lateinit var sword: Sword
+private lateinit var bow: Bow
 private lateinit var knife: Knife
+private lateinit var staff: Staff
+private const val BLACKMAGE_NAME = "Pascal"
+private const val BLACKMAGE_MAXHP = 50
+private const val BLACKMAGE_DEFENSE = 75
+private const val BLACKMAGE_MAXMP = 100
 private const val STAFF_NAME = "testStaff"
 private const val STAFF_DAMAGE = 10
 private const val STAFF_WEIGHT = 15
@@ -38,7 +50,7 @@ class BlackMageTest : FunSpec({
             Arb.nonNegativeInt(1000),
             Arb.nonNegativeInt(1000),
             Arb.nonNegativeInt(100000)
-            ) {name, maxHp, maxMp, currentHp, currentMp, defense ->
+        ) { name, maxHp, maxMp, currentHp, currentMp, defense ->
             assume(currentHp <= maxHp && currentMp <= maxMp)
             blackMage1 = BlackMage(name, maxHp, maxMp, defense, turnsQueue)
             blackMage2 = BlackMage(name, maxHp, maxMp, defense, turnsQueue)
@@ -67,8 +79,8 @@ class BlackMageTest : FunSpec({
             Arb.nonNegativeInt(1000),
             Arb.nonNegativeInt(100000),
             Arb.nonNegativeInt(100000)
-            ) {name1, name2, maxHp1, maxHp2, maxMp1, maxMp2, currentHp1, currentHp2, currentMp1, currentMp2, defense1, defense2 ->
-            assume(name1 != name2 || maxHp1 != maxHp2 || maxMp1 != maxMp2 || currentHp1 != currentHp2 || currentMp1 != currentMp2|| defense1 != defense2)
+        ) { name1, name2, maxHp1, maxHp2, maxMp1, maxMp2, currentHp1, currentHp2, currentMp1, currentMp2, defense1, defense2 ->
+            assume(name1 != name2 || maxHp1 != maxHp2 || maxMp1 != maxMp2 || currentHp1 != currentHp2 || currentMp1 != currentMp2 || defense1 != defense2)
             assume(currentHp1 <= maxHp1 && currentHp2 <= maxHp2 && currentMp1 <= maxMp1 && currentMp2 <= maxMp2)
             blackMage1 = BlackMage(name1, maxHp1, maxMp1, defense1, turnsQueue)
             blackMage2 = BlackMage(name2, maxHp2, maxMp2, defense2, turnsQueue)
@@ -93,7 +105,7 @@ class BlackMageTest : FunSpec({
             Arb.nonNegativeInt(1000),
             Arb.nonNegativeInt(1000),
             Arb.nonNegativeInt(100000)
-        ) {name, maxHp, maxMp, currentHp, currentMp, defense ->
+        ) { name, maxHp, maxMp, currentHp, currentMp, defense ->
             assume(currentHp <= maxHp && currentMp <= maxMp)
             blackMage1 = BlackMage(name, maxHp, maxMp, defense, turnsQueue)
             blackMage2 = BlackMage(name, maxHp, maxMp, defense, turnsQueue)
@@ -122,8 +134,8 @@ class BlackMageTest : FunSpec({
             Arb.nonNegativeInt(1000),
             Arb.nonNegativeInt(100000),
             Arb.nonNegativeInt(100000)
-        ) {name1, name2, maxHp1, maxHp2, maxMp1, maxMp2, currentHp1, currentHp2, currentMp1, currentMp2, defense1, defense2 ->
-            assume(name1 != name2 || maxHp1 != maxHp2 || maxMp1 != maxMp2 || currentHp1 != currentHp2 || currentMp1 != currentMp2|| defense1 != defense2)
+        ) { name1, name2, maxHp1, maxHp2, maxMp1, maxMp2, currentHp1, currentHp2, currentMp1, currentMp2, defense1, defense2 ->
+            assume(name1 != name2 || maxHp1 != maxHp2 || maxMp1 != maxMp2 || currentHp1 != currentHp2 || currentMp1 != currentMp2 || defense1 != defense2)
             assume(currentHp1 <= maxHp1 && currentHp2 <= maxHp2 && currentMp1 <= maxMp1 && currentMp2 <= maxMp2)
             blackMage1 = BlackMage(name1, maxHp1, maxMp1, defense1, turnsQueue)
             blackMage2 = BlackMage(name2, maxHp2, maxMp2, defense2, turnsQueue)
@@ -152,7 +164,7 @@ class BlackMageTest : FunSpec({
             Arb.nonNegativeInt(100000),
             Arb.nonNegativeInt(100000),
             Arb.nonNegativeInt(100000)
-        ) {name1, name2, weight, maxHp, maxMp, currentHp, currentMp, defense, damage, magicDamage ->
+        ) { name1, name2, weight, maxHp, maxMp, currentHp, currentMp, defense, damage, magicDamage ->
             assume(currentHp <= maxHp && currentMp <= maxMp)
             blackMage1 = BlackMage(name1, maxHp, maxMp, defense, turnsQueue)
             blackMage1.currentHp = currentHp
@@ -169,6 +181,74 @@ class BlackMageTest : FunSpec({
                 "maxHp = ${blackMage1.maxHp}, maxMp = ${blackMage1.maxMp}, " +
                 "currentHp = ${blackMage1.currentHp}, currentMp = ${blackMage1.currentMp}, " +
                 "defense = ${blackMage1.defense}, equippedWeapon = ${blackMage1.equippedWeapon})"
+        }
+    }
+    
+    // Weapons equip tests
+    test("A black mage can be equipped with a knife") {
+        checkAll(
+            Arb.string(),
+            Arb.positiveInt(100000),
+            Arb.positiveInt(100000)
+        ) { name, damage, weight ->
+            blackMage1 = BlackMage(BLACKMAGE_NAME, BLACKMAGE_MAXHP, BLACKMAGE_MAXMP, BLACKMAGE_DEFENSE, turnsQueue)
+            knife = Knife(name, damage, weight)
+            shouldNotThrow<UnableToEquipException> {
+                blackMage1.equip(knife)
+            }
+        }
+    }
+    test("A black mage can be equipped with a staff") {
+        checkAll(
+            Arb.string(),
+            Arb.positiveInt(100000),
+            Arb.positiveInt(100000),
+            Arb.positiveInt(100000)
+        ) { name, damage, weight, magicDamage ->
+            blackMage1 = BlackMage(BLACKMAGE_NAME, BLACKMAGE_MAXHP, BLACKMAGE_MAXMP, BLACKMAGE_DEFENSE, turnsQueue)
+            staff = Staff(name, damage, weight, magicDamage)
+            shouldNotThrow<UnableToEquipException> {
+                blackMage1.equip(staff)
+            }
+        }
+    }
+    test("An exception should be thrown when a bow is equipped to a black mage") {
+        checkAll(
+            Arb.string(),
+            Arb.positiveInt(100000),
+            Arb.positiveInt(100000)
+        ) { name, damage, weight ->
+            blackMage1 = BlackMage(BLACKMAGE_NAME, BLACKMAGE_MAXHP, BLACKMAGE_MAXMP, BLACKMAGE_DEFENSE, turnsQueue)
+            bow = Bow(name, damage, weight)
+            shouldThrow<UnableToEquipException> {
+                blackMage1.equip(bow)
+            }
+        }
+    }
+    test("An exception should be thrown when a sword is equipped to a black mage") {
+        checkAll(
+            Arb.string(),
+            Arb.positiveInt(100000),
+            Arb.positiveInt(100000)
+        ) { name, damage, weight ->
+            blackMage1 = BlackMage(BLACKMAGE_NAME, BLACKMAGE_MAXHP, BLACKMAGE_MAXMP, BLACKMAGE_DEFENSE, turnsQueue)
+            sword = Sword(name, damage, weight)
+            shouldThrow<UnableToEquipException> {
+                blackMage1.equip(sword)
+            }
+        }
+    }
+    test("An exception should be thrown when an axe is equipped to a black mage") {
+        checkAll(
+            Arb.string(),
+            Arb.positiveInt(100000),
+            Arb.positiveInt(100000)
+        ) { name, damage, weight ->
+            blackMage1 = BlackMage(BLACKMAGE_NAME, BLACKMAGE_MAXHP, BLACKMAGE_MAXMP, BLACKMAGE_DEFENSE, turnsQueue)
+            axe = Axe(name, damage, weight)
+            shouldThrow<UnableToEquipException> {
+                blackMage1.equip(axe)
+            }
         }
     }
 })

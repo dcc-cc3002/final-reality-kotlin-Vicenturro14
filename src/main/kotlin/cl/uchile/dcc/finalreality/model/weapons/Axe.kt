@@ -1,5 +1,6 @@
 package cl.uchile.dcc.finalreality.model.weapons
 
+import cl.uchile.dcc.finalreality.model.character.player.PlayerCharacter
 import java.util.Objects
 
 /**
@@ -42,4 +43,24 @@ class Axe(
         "damage = $damage, " +
         "weight = $weight" +
         ")"
+
+    override fun equipToEngineer(engineer: PlayerCharacter) {
+        engineer.equippedWeapon = this
+    }
+
+    override fun equipToKnight(knight: PlayerCharacter) {
+        knight.equippedWeapon = this
+    }
+    private val auxString = "axes"
+    override fun equipToBlackMage(blackMage: PlayerCharacter) {
+        unableToEquip("Black mages", auxString)
+    }
+
+    override fun equipToWhiteMage(whiteMage: PlayerCharacter) {
+        unableToEquip("White mages", auxString)
+    }
+
+    override fun equipToThief(thief: PlayerCharacter) {
+        unableToEquip("Thieves", auxString)
+    }
 }

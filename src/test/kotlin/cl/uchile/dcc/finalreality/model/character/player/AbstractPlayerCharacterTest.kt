@@ -53,7 +53,7 @@ class AbstractPlayerCharacterTest : FunSpec({
             Arb.nonNegativeInt(100000),
             Arb.positiveInt(100000),
             Arb.positiveInt(100000)
-        ) {name, damage, weight, magicDamage ->
+        ) { name, damage, weight, magicDamage ->
             testAxe = Axe(name, damage, weight)
             engineer.equip(testAxe)
             engineer.equippedWeapon shouldBe testAxe

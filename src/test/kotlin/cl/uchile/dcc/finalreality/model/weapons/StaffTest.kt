@@ -20,7 +20,7 @@ class StaffTest : FunSpec({
             Arb.positiveInt(100000),
             Arb.positiveInt(100000),
             Arb.positiveInt(100000)
-        ) {name, damage, weight, magicDamage ->
+        ) { name, damage, weight, magicDamage ->
             val staff1 = Staff(name, damage, weight, magicDamage)
             val staff2 = Staff(name, damage, weight, magicDamage)
             staff1 shouldNotBeSameInstanceAs staff2
@@ -37,7 +37,7 @@ class StaffTest : FunSpec({
             Arb.positiveInt(100000),
             Arb.positiveInt(100000),
             Arb.positiveInt(100000)
-        ) {name1, name2, damage1, damage2, weight1, weight2, magicDamage1, magicDamage2 ->
+        ) { name1, name2, damage1, damage2, weight1, weight2, magicDamage1, magicDamage2 ->
             assume(name1 != name2 || damage1 != damage2 || weight1 != weight2 || magicDamage1 != magicDamage2)
             val staff1 = Staff(name1, damage1, weight1, magicDamage1)
             val staff2 = Staff(name2, damage2, weight2, magicDamage2)

@@ -16,10 +16,10 @@ class BowTest : FunSpec({
     // equals method tests
     test("Two bows with the same parameters are equal") {
         checkAll(
-        Arb.string(),
-        Arb.positiveInt(100000),
-        Arb.positiveInt(100000)
-        ) {name, damage, weight ->
+            Arb.string(),
+            Arb.positiveInt(100000),
+            Arb.positiveInt(100000)
+        ) { name, damage, weight ->
             val bow1 = Bow(name, damage, weight)
             val bow2 = Bow(name, damage, weight)
             bow1 shouldNotBeSameInstanceAs bow2
@@ -28,13 +28,13 @@ class BowTest : FunSpec({
     }
     test("Two bows with the different parameters aren't equal") {
         checkAll(
-        Arb.string(),
-        Arb.string(),
-        Arb.positiveInt(100000),
-        Arb.positiveInt(100000),
-        Arb.positiveInt(100000),
-        Arb.positiveInt(100000)
-        ) {name1, name2, damage1, damage2, weight1, weight2 ->
+            Arb.string(),
+            Arb.string(),
+            Arb.positiveInt(100000),
+            Arb.positiveInt(100000),
+            Arb.positiveInt(100000),
+            Arb.positiveInt(100000)
+        ) { name1, name2, damage1, damage2, weight1, weight2 ->
             assume(name1 != name2 || damage1 != damage2 || weight1 != weight2)
             val bow1 = Bow(name1, damage1, weight1)
             val bow2 = Bow(name2, damage2, weight2)

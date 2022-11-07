@@ -19,7 +19,7 @@ class AxeTest : FunSpec({
             Arb.string(),
             Arb.positiveInt(100000),
             Arb.positiveInt(100000),
-        ) {name, damage, weight ->
+        ) { name, damage, weight ->
             val axe1 = Axe(name, damage, weight)
             val axe2 = Axe(name, damage, weight)
             axe1 shouldNotBeSameInstanceAs axe2
@@ -34,7 +34,7 @@ class AxeTest : FunSpec({
             Arb.positiveInt(100000),
             Arb.positiveInt(100000),
             Arb.positiveInt(100000)
-        ) {name1, name2, damage1, damage2, weight1, weight2 ->
+        ) { name1, name2, damage1, damage2, weight1, weight2 ->
             assume(name1 != name2 || damage1 != damage2 || weight1 != weight2)
             val axe1 = Axe(name1, damage1, weight1)
             val axe2 = Axe(name2, damage2, weight2)
@@ -83,4 +83,6 @@ class AxeTest : FunSpec({
             "$axe1" shouldBe "Axe(name = '${axe1.name}', damage = ${axe1.damage}, weight = ${axe1.weight})"
         }
     }
+
+    // equipTo
 })

@@ -19,7 +19,7 @@ class KnifeTest : FunSpec({
             Arb.string(),
             Arb.positiveInt(100000),
             Arb.positiveInt(100000)
-        ) {name, damage, weight ->
+        ) { name, damage, weight ->
             val knife1 = Knife(name, damage, weight)
             val knife2 = Knife(name, damage, weight)
             knife1 shouldNotBeSameInstanceAs knife2
@@ -34,7 +34,7 @@ class KnifeTest : FunSpec({
             Arb.positiveInt(100000),
             Arb.positiveInt(100000),
             Arb.positiveInt(100000)
-        ) {name1, name2, damage1, damage2, weight1, weight2 ->
+        ) { name1, name2, damage1, damage2, weight1, weight2 ->
             assume(name1 != name2 || damage1 != damage2 || weight1 != weight2)
             val knife1 = Knife(name1, damage1, weight1)
             val knife2 = Knife(name2, damage2, weight2)

@@ -35,7 +35,7 @@ class AbstractMagicPlayerCharacterTest : FunSpec({
             }
         }
     }
-    test("An exception should be thrown when the maxMp of a mage is less than 0"){
+    test("An exception should be thrown when the maxMp of a mage is less than 0") {
         checkAll(
             Arb.negativeInt(-100000)
         ) { maxMp ->
@@ -49,11 +49,11 @@ class AbstractMagicPlayerCharacterTest : FunSpec({
     }
 
     // currentMp property tests
-    test("The currentMp of a mage should be at least 0"){
+    test("The currentMp of a mage should be at least 0") {
         checkAll(
             Arb.nonNegativeInt(100000),
             Arb.nonNegativeInt(10000)
-        ) {maxMp, currentMp ->
+        ) { maxMp, currentMp ->
             assume(currentMp <= maxMp)
             blackMage = BlackMage(MAGE_NAME, MAGE_MAXHP, maxMp, MAGE_DEFENSE, turnsQueue)
             whiteMage = WhiteMage(MAGE_NAME, MAGE_MAXHP, maxMp, MAGE_DEFENSE, turnsQueue)
@@ -69,7 +69,7 @@ class AbstractMagicPlayerCharacterTest : FunSpec({
         checkAll(
             Arb.nonNegativeInt(100000),
             Arb.negativeInt(-100000)
-        ) {maxMp, currentMp ->
+        ) { maxMp, currentMp ->
             blackMage = BlackMage(MAGE_NAME, MAGE_MAXHP, maxMp, MAGE_DEFENSE, turnsQueue)
             whiteMage = WhiteMage(MAGE_NAME, MAGE_MAXHP, maxMp, MAGE_DEFENSE, turnsQueue)
             shouldThrowUnit<InvalidStatValueException> {
@@ -84,7 +84,7 @@ class AbstractMagicPlayerCharacterTest : FunSpec({
         checkAll(
             Arb.nonNegativeInt(100000),
             Arb.nonNegativeInt(10000)
-        ) {maxMp, currentMp ->
+        ) { maxMp, currentMp ->
             assume(currentMp <= maxMp)
             blackMage = BlackMage(MAGE_NAME, MAGE_MAXHP, maxMp, MAGE_DEFENSE, turnsQueue)
             whiteMage = WhiteMage(MAGE_NAME, MAGE_MAXHP, maxMp, MAGE_DEFENSE, turnsQueue)
@@ -100,7 +100,7 @@ class AbstractMagicPlayerCharacterTest : FunSpec({
         checkAll(
             Arb.nonNegativeInt(100000),
             Arb.nonNegativeInt(100000)
-        ) {maxMp, currentMpAux ->
+        ) { maxMp, currentMpAux ->
             blackMage = BlackMage(MAGE_NAME, MAGE_MAXHP, maxMp, MAGE_DEFENSE, turnsQueue)
             whiteMage = WhiteMage(MAGE_NAME, MAGE_MAXHP, maxMp, MAGE_DEFENSE, turnsQueue)
             /* The value assigned to currentMp is currentMpAux + maxMp + 1 to ensure that

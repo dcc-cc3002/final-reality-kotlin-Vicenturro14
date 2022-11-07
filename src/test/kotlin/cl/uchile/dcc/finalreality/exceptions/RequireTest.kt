@@ -19,7 +19,7 @@ class RequireTest : FunSpec({
             Arb.string(),
             Arb.int(),
             Arb.int()
-        ) {statName, statValue, least ->
+        ) { statName, statValue, least ->
             assume(statValue < least)
             shouldThrow<InvalidStatValueException> {
                 Require.Stat(statValue, statName) atLeast least
@@ -32,7 +32,7 @@ class RequireTest : FunSpec({
             Arb.string(),
             Arb.int(),
             Arb.int()
-        ) {statName, statValue, least ->
+        ) { statName, statValue, least ->
             assume(statValue > least)
             shouldNotThrow<InvalidStatValueException> {
                 Require.Stat(statValue, statName) atLeast least
@@ -43,7 +43,7 @@ class RequireTest : FunSpec({
         checkAll(
             Arb.string(),
             Arb.int()
-        ) {statName, statValue ->
+        ) { statName, statValue ->
             shouldNotThrow<InvalidStatValueException> {
                 Require.Stat(statValue, statName) atLeast statValue
             }
@@ -57,7 +57,7 @@ class RequireTest : FunSpec({
             Arb.positiveInt(100000),
             Arb.int(-50000, 50000),
             Arb.int(-50000, 50000)
-        ) {statName, auxValue, rangeStart, rangeEnd ->
+        ) { statName, auxValue, rangeStart, rangeEnd ->
             assume(rangeStart <= rangeEnd)
             // statValue is rangeStart - auxValue, where auxValue > 0, to ensure that statValue < rangeStart.
             val statValue = rangeStart - auxValue
@@ -74,7 +74,7 @@ class RequireTest : FunSpec({
             Arb.positiveInt(100000),
             Arb.int(-50000, 50000),
             Arb.int(-50000, 50000)
-        ) {statName, auxValue, rangeStart, rangeEnd ->
+        ) { statName, auxValue, rangeStart, rangeEnd ->
             assume(rangeStart <= rangeEnd)
             // statValue is rangeEnd + auxValue, where auxValue > 0, to ensure that statValue > rangeEnd.
             val statValue = rangeEnd + auxValue
@@ -89,7 +89,7 @@ class RequireTest : FunSpec({
             Arb.string(),
             Arb.int(-50000, 50000),
             Arb.int(-50000, 50000)
-        ) {statName, rangeStart, rangeEnd ->
+        ) { statName, rangeStart, rangeEnd ->
             assume(rangeStart <= rangeEnd)
             val statValue = (rangeStart..rangeEnd).random()
             shouldNotThrow<InvalidStatValueException> {

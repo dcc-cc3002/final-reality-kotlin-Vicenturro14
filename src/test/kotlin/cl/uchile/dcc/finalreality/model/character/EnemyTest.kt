@@ -178,6 +178,4 @@ class EnemyTest : FunSpec({
         turnsQueue.contains(enemy2).shouldBeTrue()
         turnsQueue.contains(enemy3).shouldBeTrue()
     }
-
-
 })

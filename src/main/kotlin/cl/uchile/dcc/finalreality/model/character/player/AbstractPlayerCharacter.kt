@@ -33,11 +33,7 @@ abstract class AbstractPlayerCharacter(
     turnsQueue: BlockingQueue<GameCharacter>
 ) : AbstractCharacter(name, maxHp, defense, turnsQueue), PlayerCharacter {
 
-    lateinit var equippedWeapon: Weapon
-
-    override fun equip(weapon: Weapon) {
-        this.equippedWeapon = weapon
-    }
+    override lateinit var equippedWeapon: Weapon
 
     override fun waitTurn() {
         scheduledExecutor = Executors.newSingleThreadScheduledExecutor()

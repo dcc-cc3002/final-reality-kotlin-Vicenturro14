@@ -1,8 +1,14 @@
 package cl.uchile.dcc.finalreality.model.character.player
 
+import cl.uchile.dcc.finalreality.exceptions.UnableToEquipException
 import cl.uchile.dcc.finalreality.model.character.GameCharacter
+import cl.uchile.dcc.finalreality.model.weapons.Axe
+import cl.uchile.dcc.finalreality.model.weapons.Bow
 import cl.uchile.dcc.finalreality.model.weapons.Knife
+import cl.uchile.dcc.finalreality.model.weapons.Staff
 import cl.uchile.dcc.finalreality.model.weapons.Sword
+import io.kotest.assertions.throwables.shouldNotThrow
+import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.FunSpec
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
@@ -19,8 +25,14 @@ import java.util.concurrent.LinkedBlockingQueue
 
 private lateinit var thief1: Thief
 private lateinit var thief2: Thief
-private lateinit var knife: Knife
+private lateinit var axe: Axe
 private lateinit var sword: Sword
+private lateinit var bow: Bow
+private lateinit var knife: Knife
+private lateinit var staff: Staff
+private const val THIEF_NAME = "Isidora"
+private const val THIEF_MAXHP = 100
+private const val THIEF_DEFENSE = 30
 private const val KNIFE_NAME = "testKnife"
 private const val KNIFE_DAMAGE = 100
 private const val KNIFE_WEIGHT = 30
@@ -34,7 +46,7 @@ class ThiefTest : FunSpec({
             Arb.positiveInt(100000),
             Arb.positiveInt(100000),
             Arb.nonNegativeInt(10000)
-        ) {name, maxHp, defense, currentHp ->
+        ) { name, maxHp, defense, currentHp ->
             assume(currentHp <= maxHp)
             thief1 = Thief(name, maxHp, defense, turnsQueue)
             thief2 = Thief(name, maxHp, defense, turnsQueue)
@@ -57,7 +69,7 @@ class ThiefTest : FunSpec({
             Arb.positiveInt(100000),
             Arb.nonNegativeInt(10000),
             Arb.nonNegativeInt(10000)
-        ) {name1, name2, maxHp1, maxHp2, defense1, defense2, currentHp1, currentHp2 ->
+        ) { name1, name2, maxHp1, maxHp2, defense1, defense2, currentHp1, currentHp2 ->
             assume(maxHp1 >= currentHp1 && maxHp2 >= currentHp2)
             thief1 = Thief(name1, maxHp1, defense1, turnsQueue)
             thief2 = Thief(name2, maxHp2, defense2, turnsQueue)
@@ -125,7 +137,7 @@ class ThiefTest : FunSpec({
             Arb.positiveInt(100000),
             Arb.positiveInt(100000),
             Arb.nonNegativeInt(10000)
-        ) {name1, name2, maxHp, defense, damage, weight, currentHp ->
+        ) { name1, name2, maxHp, defense, damage, weight, currentHp ->
             assume(currentHp <= maxHp)
             thief1 = Thief(name1, maxHp, defense, turnsQueue)
             knife = Knife(name2, damage, weight)
@@ -138,4 +150,71 @@ class ThiefTest : FunSpec({
         }
     }
 
+    // Weapons equip tests
+    test("A thief can be equipped with a sword") {
+        checkAll(
+            Arb.string(),
+            Arb.positiveInt(100000),
+            Arb.positiveInt(100000)
+        ) { name, damage, weight ->
+            thief1 = Thief(THIEF_NAME, THIEF_MAXHP, THIEF_DEFENSE, turnsQueue)
+            sword = Sword(name, damage, weight)
+            shouldNotThrow<UnableToEquipException> {
+                thief1.equip(sword)
+            }
+        }
+    }
+    test("A thief can be equipped with a knife") {
+        checkAll(
+            Arb.string(),
+            Arb.positiveInt(100000),
+            Arb.positiveInt(100000)
+        ) { name, damage, weight ->
+            thief1 = Thief(THIEF_NAME, THIEF_MAXHP, THIEF_DEFENSE, turnsQueue)
+            knife = Knife(name, damage, weight)
+            shouldNotThrow<UnableToEquipException> {
+                thief1.equip(knife)
+            }
+        }
+    }
+    test("A thief can be equipped with a bow") {
+        checkAll(
+            Arb.string(),
+            Arb.positiveInt(100000),
+            Arb.positiveInt(100000)
+        ) { name, damage, weight ->
+            thief1 = Thief(THIEF_NAME, THIEF_MAXHP, THIEF_DEFENSE, turnsQueue)
+            bow = Bow(name, damage, weight)
+            shouldNotThrow<UnableToEquipException> {
+                thief1.equip(bow)
+            }
+        }
+    }
+    test("An exception should be thrown when a staff is equipped to a thief") {
+        checkAll(
+            Arb.string(),
+            Arb.positiveInt(100000),
+            Arb.positiveInt(100000),
+            Arb.positiveInt(100000)
+        ) { name, damage, weight, magicDamage ->
+            thief1 = Thief(THIEF_NAME, THIEF_MAXHP, THIEF_DEFENSE, turnsQueue)
+            staff = Staff(name, damage, weight, magicDamage)
+            shouldThrow<UnableToEquipException> {
+                thief1.equip(staff)
+            }
+        }
+    }
+    test("An exception should be thrown when an axe is equipped to a thief") {
+        checkAll(
+            Arb.string(),
+            Arb.positiveInt(100000),
+            Arb.positiveInt(100000)
+        ) { name, damage, weight ->
+            thief1 = Thief(THIEF_NAME, THIEF_MAXHP, THIEF_DEFENSE, turnsQueue)
+            axe = Axe(name, damage, weight)
+            shouldThrow<UnableToEquipException> {
+                thief1.equip(axe)
+            }
+        }
+    }
 })

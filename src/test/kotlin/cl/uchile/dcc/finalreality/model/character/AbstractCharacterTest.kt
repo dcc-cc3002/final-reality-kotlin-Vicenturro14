@@ -1,10 +1,10 @@
 package cl.uchile.dcc.finalreality.model.character
 
 import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException
-import cl.uchile.dcc.finalreality.model.character.player.mages.BlackMage
 import cl.uchile.dcc.finalreality.model.character.player.Engineer
 import cl.uchile.dcc.finalreality.model.character.player.Knight
 import cl.uchile.dcc.finalreality.model.character.player.Thief
+import cl.uchile.dcc.finalreality.model.character.player.mages.BlackMage
 import cl.uchile.dcc.finalreality.model.character.player.mages.WhiteMage
 import io.kotest.assertions.throwables.shouldNotThrow
 import io.kotest.assertions.throwables.shouldNotThrowUnit
@@ -38,7 +38,7 @@ class AbstractCharacterTest : FunSpec({
     test("The maxHp of a character should be at least 1") {
         checkAll(
             Arb.positiveInt(100000)
-        ) {maxHp ->
+        ) { maxHp ->
             shouldNotThrow<InvalidStatValueException> {
                 Enemy(CHARACTER_NAME, ENEMY_WEIGHT, maxHp, CHARACTER_DEFENSE, turnsQueue)
             }
@@ -62,7 +62,7 @@ class AbstractCharacterTest : FunSpec({
     test("An exception should be thrown when the maxHp of a character is less than 1") {
         checkAll(
             Arb.nonPositiveInt(-100000)
-        ) {maxHp ->
+        ) { maxHp ->
             shouldThrow<InvalidStatValueException> {
                 Enemy(CHARACTER_NAME, ENEMY_WEIGHT, maxHp, CHARACTER_DEFENSE, turnsQueue)
             }
@@ -89,7 +89,7 @@ class AbstractCharacterTest : FunSpec({
         checkAll(
             Arb.positiveInt(100000),
             Arb.nonNegativeInt(10000)
-        ) {maxHp, currentHp ->
+        ) { maxHp, currentHp ->
             assume(currentHp <= maxHp)
             enemy = Enemy(CHARACTER_NAME, ENEMY_WEIGHT, maxHp, CHARACTER_DEFENSE, turnsQueue)
             engineer = Engineer(CHARACTER_NAME, maxHp, CHARACTER_DEFENSE, turnsQueue)
@@ -121,7 +121,7 @@ class AbstractCharacterTest : FunSpec({
         checkAll(
             Arb.positiveInt(100000),
             Arb.negativeInt(-100000)
-        ) {maxHp, currentHp ->
+        ) { maxHp, currentHp ->
             enemy = Enemy(CHARACTER_NAME, ENEMY_WEIGHT, maxHp, CHARACTER_DEFENSE, turnsQueue)
             engineer = Engineer(CHARACTER_NAME, maxHp, CHARACTER_DEFENSE, turnsQueue)
             knight = Knight(CHARACTER_NAME, maxHp, CHARACTER_DEFENSE, turnsQueue)
@@ -153,7 +153,7 @@ class AbstractCharacterTest : FunSpec({
         checkAll(
             Arb.positiveInt(100000),
             Arb.nonNegativeInt(10000)
-        ) {maxHp, currentHp1 ->
+        ) { maxHp, currentHp1 ->
             assume(currentHp1 <= maxHp)
             enemy = Enemy(CHARACTER_NAME, ENEMY_WEIGHT, maxHp, CHARACTER_DEFENSE, turnsQueue)
             engineer = Engineer(CHARACTER_NAME, maxHp, CHARACTER_DEFENSE, turnsQueue)
@@ -181,11 +181,11 @@ class AbstractCharacterTest : FunSpec({
             }
         }
     }
-    test("An exception should be thrown when the currentHp of a character is greater than maxHP"){
+    test("An exception should be thrown when the currentHp of a character is greater than maxHP") {
         checkAll(
             Arb.positiveInt(100000),
             Arb.nonNegativeInt(100000)
-        ) {maxHp, currentHpAux ->
+        ) { maxHp, currentHpAux ->
             enemy = Enemy(CHARACTER_NAME, ENEMY_WEIGHT, maxHp, CHARACTER_DEFENSE, turnsQueue)
             engineer = Engineer(CHARACTER_NAME, maxHp, CHARACTER_DEFENSE, turnsQueue)
             knight = Knight(CHARACTER_NAME, maxHp, CHARACTER_DEFENSE, turnsQueue)
@@ -220,7 +220,7 @@ class AbstractCharacterTest : FunSpec({
     test("The defense of a character should be al least 0") {
         checkAll(
             Arb.nonNegativeInt(100000)
-        ) {defense ->
+        ) { defense ->
             shouldNotThrow<InvalidStatValueException> {
                 Enemy(CHARACTER_NAME, ENEMY_WEIGHT, CHARACTER_MAXHP, defense, turnsQueue)
                 Engineer(CHARACTER_NAME, CHARACTER_MAXHP, defense, turnsQueue)
@@ -234,7 +234,7 @@ class AbstractCharacterTest : FunSpec({
     test("An exception should be thrown when the defense of a character is less than 0") {
         checkAll(
             Arb.negativeInt(-100000)
-        ) {defense ->
+        ) { defense ->
             shouldThrow<InvalidStatValueException> {
                 Enemy(CHARACTER_NAME, ENEMY_WEIGHT, CHARACTER_MAXHP, defense, turnsQueue)
                 Engineer(CHARACTER_NAME, CHARACTER_MAXHP, defense, turnsQueue)

@@ -7,14 +7,14 @@ import io.kotest.property.Arb
 import io.kotest.property.arbitrary.string
 import io.kotest.property.checkAll
 
-class InvalidStatValueExceptionTest : FunSpec({
-    val prefix = "The required condition is not met. "
-    test("An invalid stat exception can be thrown with a description") {
+class UnableToEquipExceptionTest : FunSpec({
+    val prefix = "Impossible to equip item. "
+    test("An unable to equip exception can be thrown with a description.") {
         checkAll(
             Arb.string()
         ) { description ->
-            shouldThrow<InvalidStatValueException> {
-                throw InvalidStatValueException(description)
+            shouldThrow<UnableToEquipException> {
+                throw UnableToEquipException(description)
             }.message shouldBe prefix + description
         }
     }
