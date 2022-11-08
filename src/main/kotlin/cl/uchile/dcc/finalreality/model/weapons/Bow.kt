@@ -1,5 +1,6 @@
 package cl.uchile.dcc.finalreality.model.weapons
 
+import cl.uchile.dcc.finalreality.exceptions.UnableToEquipException
 import cl.uchile.dcc.finalreality.model.character.player.PlayerCharacter
 import java.util.Objects
 
@@ -45,7 +46,6 @@ class Bow(
         "weight = $weight" +
         ")"
 
-    private val auxString = "bows"
     override fun equipToThief(thief: PlayerCharacter) {
         thief.equippedWeapon = this
     }
@@ -54,15 +54,16 @@ class Bow(
         engineer.equippedWeapon = this
     }
 
+    private val suffix = "can't be equipped with bows"
     override fun equipToKnight(knight: PlayerCharacter) {
-        unableToEquip("Knights", auxString)
+        throw UnableToEquipException("Knights $suffix")
     }
 
     override fun equipToBlackMage(blackMage: PlayerCharacter) {
-        unableToEquip("Black mages", auxString)
+        throw UnableToEquipException("Black mages $suffix")
     }
 
     override fun equipToWhiteMage(whiteMage: PlayerCharacter) {
-        unableToEquip("White mages", auxString)
+        throw UnableToEquipException("White mages $suffix")
     }
 }

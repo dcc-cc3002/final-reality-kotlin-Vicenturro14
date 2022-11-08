@@ -162,6 +162,7 @@ class EngineerTest : FunSpec({
             shouldNotThrow<UnableToEquipException> {
                 engineer1.equip(axe)
             }
+            engineer1.equippedWeapon shouldBe axe
         }
     }
     test("An engineer can be equipped with a bow") {
@@ -175,6 +176,7 @@ class EngineerTest : FunSpec({
             shouldNotThrow<UnableToEquipException> {
                 engineer1.equip(bow)
             }
+            engineer1.equippedWeapon shouldBe bow
         }
     }
     test("An exception should be thrown when a staff is equipped to a engineer") {

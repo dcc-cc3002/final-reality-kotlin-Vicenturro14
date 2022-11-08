@@ -9,4 +9,4 @@ package cl.uchile.dcc.finalreality.exceptions
  * @author Vicente Olivares
  */
 class UnableToEquipException(description: String) :
-    Exception("Impossible to equip item. $description")
+    Exception(description)

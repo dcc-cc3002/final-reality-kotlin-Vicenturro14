@@ -11,6 +11,8 @@ import cl.uchile.dcc.finalreality.model.weapons.Weapon
 
 /**
  * A character controlled by the user.
+ * @property equippedWeapon
+ *   The [Weapon] equipped with the character.
  *
  * @author <a href="https://www.github.com/Vicenturro14">Vicenturro14</a>
  * @author Vicente Olivares

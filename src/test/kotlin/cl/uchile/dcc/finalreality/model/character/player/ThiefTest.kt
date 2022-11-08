@@ -162,6 +162,7 @@ class ThiefTest : FunSpec({
             shouldNotThrow<UnableToEquipException> {
                 thief1.equip(sword)
             }
+            thief1.equippedWeapon shouldBe sword
         }
     }
     test("A thief can be equipped with a knife") {
@@ -175,6 +176,7 @@ class ThiefTest : FunSpec({
             shouldNotThrow<UnableToEquipException> {
                 thief1.equip(knife)
             }
+            thief1.equippedWeapon shouldBe knife
         }
     }
     test("A thief can be equipped with a bow") {
@@ -188,6 +190,7 @@ class ThiefTest : FunSpec({
             shouldNotThrow<UnableToEquipException> {
                 thief1.equip(bow)
             }
+            thief1.equippedWeapon shouldBe bow
         }
     }
     test("An exception should be thrown when a staff is equipped to a thief") {

@@ -196,6 +196,7 @@ class BlackMageTest : FunSpec({
             shouldNotThrow<UnableToEquipException> {
                 blackMage1.equip(knife)
             }
+            blackMage1.equippedWeapon shouldBe knife
         }
     }
     test("A black mage can be equipped with a staff") {
@@ -210,6 +211,7 @@ class BlackMageTest : FunSpec({
             shouldNotThrow<UnableToEquipException> {
                 blackMage1.equip(staff)
             }
+            blackMage1.equippedWeapon shouldBe staff
         }
     }
     test("An exception should be thrown when a bow is equipped to a black mage") {

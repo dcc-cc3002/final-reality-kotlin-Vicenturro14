@@ -162,6 +162,7 @@ class KnightTest : FunSpec({
             shouldNotThrow<UnableToEquipException> {
                 knight1.equip(sword)
             }
+            knight1.equippedWeapon shouldBe sword
         }
     }
     test("A knight can be equipped with an axe") {
@@ -175,6 +176,7 @@ class KnightTest : FunSpec({
             shouldNotThrow<UnableToEquipException> {
                 knight1.equip(axe)
             }
+            knight1.equippedWeapon shouldBe axe
         }
     }
     test("A knight can be equipped with a knife") {
@@ -188,6 +190,7 @@ class KnightTest : FunSpec({
             shouldNotThrow<UnableToEquipException> {
                 knight1.equip(knife)
             }
+            knight1.equippedWeapon shouldBe knife
         }
     }
     test("An exception should be thrown when a staff is equipped to a knight") {

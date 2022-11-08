@@ -191,6 +191,7 @@ class WhiteMageTest : FunSpec({
             shouldNotThrow<UnableToEquipException> {
                 whiteMage1.equip(staff)
             }
+            whiteMage1.equippedWeapon shouldBe staff
         }
     }
     test("An exception should be thrown when a knife is equipped to a white mage") {
