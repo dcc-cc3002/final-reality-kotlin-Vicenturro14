@@ -183,7 +183,7 @@ class BlackMageTest : FunSpec({
                 "defense = ${blackMage1.defense}, equippedWeapon = ${blackMage1.equippedWeapon})"
         }
     }
-    
+
     // Weapons equip tests
     test("A black mage can be equipped with a knife") {
         checkAll(

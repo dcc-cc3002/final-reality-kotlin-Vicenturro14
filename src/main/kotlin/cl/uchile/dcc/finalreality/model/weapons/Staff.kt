@@ -69,6 +69,5 @@ class Staff(
 
     override fun equipToThief(thief: PlayerCharacter) {
         throw UnableToEquipException("Thieves $suffix")
-
     }
 }

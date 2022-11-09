@@ -27,5 +27,4 @@ interface PlayerCharacter {
      *   The weapon that is going to be equipped to a [PlayerCharacter].
      */
     fun equip(weapon: Weapon)
-
 }
