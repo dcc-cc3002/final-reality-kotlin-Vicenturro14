@@ -30,6 +30,7 @@ private const val CHARACTER_NAME = "Constanza"
 private const val CHARACTER_MAXHP = 200
 private const val CHARACTER_DEFENSE = 100
 private const val ENEMY_WEIGHT = 70
+private const val ENEMY_ATTACK = 120
 private const val MAGE_MAXMP = 100
 private val turnsQueue = LinkedBlockingQueue<GameCharacter>()
 
@@ -40,7 +41,7 @@ class AbstractCharacterTest : FunSpec({
             Arb.positiveInt(100000)
         ) { maxHp ->
             shouldNotThrow<InvalidStatValueException> {
-                Enemy(CHARACTER_NAME, ENEMY_WEIGHT, maxHp, CHARACTER_DEFENSE, turnsQueue)
+                Enemy(CHARACTER_NAME, ENEMY_WEIGHT, maxHp, CHARACTER_DEFENSE, ENEMY_ATTACK, turnsQueue)
             }
             shouldNotThrow<InvalidStatValueException> {
                 Engineer(CHARACTER_NAME, maxHp, CHARACTER_DEFENSE, turnsQueue)
@@ -64,7 +65,7 @@ class AbstractCharacterTest : FunSpec({
             Arb.nonPositiveInt(-100000)
         ) { maxHp ->
             shouldThrow<InvalidStatValueException> {
-                Enemy(CHARACTER_NAME, ENEMY_WEIGHT, maxHp, CHARACTER_DEFENSE, turnsQueue)
+                Enemy(CHARACTER_NAME, ENEMY_WEIGHT, maxHp, CHARACTER_DEFENSE, ENEMY_ATTACK, turnsQueue)
             }
             shouldThrow<InvalidStatValueException> {
                 Engineer(CHARACTER_NAME, maxHp, CHARACTER_DEFENSE, turnsQueue)
@@ -91,7 +92,7 @@ class AbstractCharacterTest : FunSpec({
             Arb.nonNegativeInt(10000)
         ) { maxHp, currentHp ->
             assume(currentHp <= maxHp)
-            enemy = Enemy(CHARACTER_NAME, ENEMY_WEIGHT, maxHp, CHARACTER_DEFENSE, turnsQueue)
+            enemy = Enemy(CHARACTER_NAME, ENEMY_WEIGHT, maxHp, CHARACTER_DEFENSE, ENEMY_ATTACK, turnsQueue)
             engineer = Engineer(CHARACTER_NAME, maxHp, CHARACTER_DEFENSE, turnsQueue)
             knight = Knight(CHARACTER_NAME, maxHp, CHARACTER_DEFENSE, turnsQueue)
             thief = Thief(CHARACTER_NAME, maxHp, CHARACTER_DEFENSE, turnsQueue)
@@ -122,7 +123,7 @@ class AbstractCharacterTest : FunSpec({
             Arb.positiveInt(100000),
             Arb.negativeInt(-100000)
         ) { maxHp, currentHp ->
-            enemy = Enemy(CHARACTER_NAME, ENEMY_WEIGHT, maxHp, CHARACTER_DEFENSE, turnsQueue)
+            enemy = Enemy(CHARACTER_NAME, ENEMY_WEIGHT, maxHp, CHARACTER_DEFENSE, ENEMY_ATTACK, turnsQueue)
             engineer = Engineer(CHARACTER_NAME, maxHp, CHARACTER_DEFENSE, turnsQueue)
             knight = Knight(CHARACTER_NAME, maxHp, CHARACTER_DEFENSE, turnsQueue)
             thief = Thief(CHARACTER_NAME, maxHp, CHARACTER_DEFENSE, turnsQueue)
@@ -155,7 +156,7 @@ class AbstractCharacterTest : FunSpec({
             Arb.nonNegativeInt(10000)
         ) { maxHp, currentHp1 ->
             assume(currentHp1 <= maxHp)
-            enemy = Enemy(CHARACTER_NAME, ENEMY_WEIGHT, maxHp, CHARACTER_DEFENSE, turnsQueue)
+            enemy = Enemy(CHARACTER_NAME, ENEMY_WEIGHT, maxHp, CHARACTER_DEFENSE, ENEMY_ATTACK, turnsQueue)
             engineer = Engineer(CHARACTER_NAME, maxHp, CHARACTER_DEFENSE, turnsQueue)
             knight = Knight(CHARACTER_NAME, maxHp, CHARACTER_DEFENSE, turnsQueue)
             thief = Thief(CHARACTER_NAME, maxHp, CHARACTER_DEFENSE, turnsQueue)
@@ -186,7 +187,7 @@ class AbstractCharacterTest : FunSpec({
             Arb.positiveInt(100000),
             Arb.nonNegativeInt(100000)
         ) { maxHp, currentHpAux ->
-            enemy = Enemy(CHARACTER_NAME, ENEMY_WEIGHT, maxHp, CHARACTER_DEFENSE, turnsQueue)
+            enemy = Enemy(CHARACTER_NAME, ENEMY_WEIGHT, maxHp, CHARACTER_DEFENSE, ENEMY_ATTACK, turnsQueue)
             engineer = Engineer(CHARACTER_NAME, maxHp, CHARACTER_DEFENSE, turnsQueue)
             knight = Knight(CHARACTER_NAME, maxHp, CHARACTER_DEFENSE, turnsQueue)
             thief = Thief(CHARACTER_NAME, maxHp, CHARACTER_DEFENSE, turnsQueue)
@@ -222,7 +223,7 @@ class AbstractCharacterTest : FunSpec({
             Arb.nonNegativeInt(100000)
         ) { defense ->
             shouldNotThrow<InvalidStatValueException> {
-                Enemy(CHARACTER_NAME, ENEMY_WEIGHT, CHARACTER_MAXHP, defense, turnsQueue)
+                Enemy(CHARACTER_NAME, ENEMY_WEIGHT, CHARACTER_MAXHP, defense, ENEMY_ATTACK, turnsQueue)
                 Engineer(CHARACTER_NAME, CHARACTER_MAXHP, defense, turnsQueue)
                 Knight(CHARACTER_NAME, CHARACTER_MAXHP, defense, turnsQueue)
                 Thief(CHARACTER_NAME, CHARACTER_MAXHP, defense, turnsQueue)
@@ -236,7 +237,7 @@ class AbstractCharacterTest : FunSpec({
             Arb.negativeInt(-100000)
         ) { defense ->
             shouldThrow<InvalidStatValueException> {
-                Enemy(CHARACTER_NAME, ENEMY_WEIGHT, CHARACTER_MAXHP, defense, turnsQueue)
+                Enemy(CHARACTER_NAME, ENEMY_WEIGHT, CHARACTER_MAXHP, defense, ENEMY_ATTACK, turnsQueue)
                 Engineer(CHARACTER_NAME, CHARACTER_MAXHP, defense, turnsQueue)
                 Knight(CHARACTER_NAME, CHARACTER_MAXHP, defense, turnsQueue)
                 Thief(CHARACTER_NAME, CHARACTER_MAXHP, defense, turnsQueue)
