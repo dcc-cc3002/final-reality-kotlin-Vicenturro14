@@ -11,6 +11,7 @@ import io.kotest.assertions.throwables.shouldNotThrowUnit
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.assertions.throwables.shouldThrowUnit
 import io.kotest.core.spec.style.FunSpec
+import io.kotest.matchers.shouldBe
 import io.kotest.property.Arb
 import io.kotest.property.arbitrary.negativeInt
 import io.kotest.property.arbitrary.nonNegativeInt
@@ -244,6 +245,43 @@ class AbstractCharacterTest : FunSpec({
                 BlackMage(CHARACTER_NAME, CHARACTER_MAXHP, MAGE_MAXMP, defense, turnsQueue)
                 WhiteMage(CHARACTER_NAME, CHARACTER_MAXHP, MAGE_MAXMP, defense, turnsQueue)
             }
+        }
+    }
+
+    // receiveAttack tests
+    test("A character should be able to receive an attack") {
+        checkAll(
+            Arb.positiveInt(100000),
+            Arb.positiveInt(100000),
+            Arb.positiveInt(100000)
+        ) { maxHp, damage, defense ->
+            assume(defense / 2 <= damage)
+            assume((damage - defense / 2) / 10 <= maxHp)
+            val damageReceived = maxHp - (damage - defense / 2) / 10
+            // Enemy
+            enemy = Enemy(CHARACTER_NAME, ENEMY_WEIGHT, maxHp, defense, ENEMY_ATTACK, turnsQueue)
+            enemy.receiveAttack(damage)
+            enemy.currentHp shouldBe damageReceived
+            // Engineer
+            engineer = Engineer(CHARACTER_NAME, maxHp, defense, turnsQueue)
+            engineer.receiveAttack(damage)
+            engineer.currentHp shouldBe damageReceived
+            // Knight
+            knight = Knight(CHARACTER_NAME, maxHp, defense, turnsQueue)
+            knight.receiveAttack(damage)
+            knight.currentHp shouldBe damageReceived
+            // Thief
+            thief = Thief(CHARACTER_NAME, maxHp, defense, turnsQueue)
+            thief.receiveAttack(damage)
+            thief.currentHp shouldBe damageReceived
+            // Black Mage
+            blackMage = BlackMage(CHARACTER_NAME, maxHp, MAGE_MAXMP, defense, turnsQueue)
+            blackMage.receiveAttack(damage)
+            blackMage.currentHp shouldBe damageReceived
+            // White Mage
+            whiteMage = WhiteMage(CHARACTER_NAME, maxHp, MAGE_MAXMP, defense, turnsQueue)
+            whiteMage.receiveAttack(damage)
+            whiteMage.currentHp shouldBe damageReceived
         }
     }
 })

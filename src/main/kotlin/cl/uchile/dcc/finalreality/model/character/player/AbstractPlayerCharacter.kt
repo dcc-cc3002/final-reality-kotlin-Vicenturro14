@@ -43,4 +43,8 @@ abstract class AbstractPlayerCharacter(
             /* unit = */ TimeUnit.SECONDS
         )
     }
+
+    override fun attackCharacter(target: GameCharacter) {
+        TODO("Not yet implemented")
+    }
 }

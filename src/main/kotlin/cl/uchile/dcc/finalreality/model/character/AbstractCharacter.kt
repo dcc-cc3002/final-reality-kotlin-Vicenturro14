@@ -44,4 +44,8 @@ abstract class AbstractCharacter(
         turnsQueue.put(this)
         scheduledExecutor.shutdown()
     }
+
+    override fun receiveAttack(damage: Int) {
+        this.currentHp -= (damage - defense / 3) / 10
+    }
 }

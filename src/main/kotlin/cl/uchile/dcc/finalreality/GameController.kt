@@ -7,6 +7,6 @@ class GameController {
     private val turnsQueue = LinkedBlockingQueue<GameCharacter>()
 
     fun attack(attacker: GameCharacter, target: GameCharacter) {
-
+    //TODO: Implement attack
     }
 }
