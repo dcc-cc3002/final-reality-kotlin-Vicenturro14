@@ -1,5 +1,7 @@
 package cl.uchile.dcc.finalreality.model.character
 
+import cl.uchile.dcc.finalreality.GameController
+import cl.uchile.dcc.finalreality.exceptions.InvalidStatValueException
 import cl.uchile.dcc.finalreality.exceptions.Require
 import java.util.concurrent.BlockingQueue
 import java.util.concurrent.ScheduledExecutorService
@@ -32,9 +34,10 @@ abstract class AbstractCharacter(
     private val turnsQueue: BlockingQueue<GameCharacter>,
 ) : GameCharacter {
 
+    protected val controller: GameController? = null
     protected lateinit var scheduledExecutor: ScheduledExecutorService
     val maxHp = Require.Stat(maxHp, "Max Hp") atLeast 1
-    var currentHp = maxHp
+    override var currentHp = maxHp
         set(value) {
             field = Require.Stat(value, "Current Hp") inRange 0..maxHp
         }
@@ -46,6 +49,14 @@ abstract class AbstractCharacter(
     }
 
     override fun receiveAttack(damage: Int) {
-        this.currentHp -= (damage - defense / 3) / 10
+        try {
+            this.currentHp -= (damage - defense / 3) / 10
+        } catch (e: InvalidStatValueException) {
+            this.currentHp = 0
+        }
+    }
+
+    override fun notifyDeath() {
+        controller?.update(this)
     }
 }

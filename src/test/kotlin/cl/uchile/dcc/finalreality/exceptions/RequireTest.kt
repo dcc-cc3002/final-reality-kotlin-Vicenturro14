@@ -12,7 +12,7 @@ import io.kotest.property.assume
 import io.kotest.property.checkAll
 
 class RequireTest : FunSpec({
-
+    // atLeast tests
     test("Require.Stat(...).atLeast should throw an exception when the stat value is less than the 'least'") {
         checkAll(
             PropTestConfig(maxDiscardPercentage = 55),
@@ -50,6 +50,7 @@ class RequireTest : FunSpec({
         }
     }
 
+    // inRange tests
     test("Require.Stat(...).inRange should throw an exception when the stat value is less than the start value of the 'range'") {
         checkAll(
             PropTestConfig(maxDiscardPercentage = 55),
@@ -66,7 +67,6 @@ class RequireTest : FunSpec({
             }
         }
     }
-
     test("Require.Stat(...).inRange should throw an exception when the stat value is greater than the end value of the 'range'") {
         checkAll(
             PropTestConfig(maxDiscardPercentage = 55),
@@ -94,6 +94,30 @@ class RequireTest : FunSpec({
             val statValue = (rangeStart..rangeEnd).random()
             shouldNotThrow<InvalidStatValueException> {
                 Require.Stat(statValue, statName) inRange rangeStart..rangeEnd
+            }
+        }
+    }
+
+    // exactly tests
+    test("Require.Stat(...).exactly should throw an exception when the stat value isn't equal to the given value") {
+        checkAll(
+            Arb.string(),
+            Arb.int(-50000, 50000),
+            Arb.int(-50000, 50000)
+        ) { statName, statValue, givenValue ->
+            assume(statValue != givenValue)
+            shouldThrow<InvalidStatValueException> {
+                Require.Stat(statValue,statName) exactly givenValue
+            }
+        }
+    }
+    test("Require.Stat(...).exactly shouldn't throw an exception when the stat value is exactly the same as the given value") {
+        checkAll(
+            Arb.string(),
+            Arb.int(-50000, 50000)
+        ) { statName, statValue ->
+            shouldNotThrow<InvalidStatValueException> {
+                Require.Stat(statValue,statName) exactly statValue
             }
         }
     }

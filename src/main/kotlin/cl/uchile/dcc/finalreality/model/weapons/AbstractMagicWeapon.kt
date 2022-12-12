@@ -20,5 +20,5 @@ abstract class AbstractMagicWeapon(
     name: String,
     damage: Int,
     weight: Int,
-    val magicDamage: Int
+    override val magicDamage: Int
 ) : AbstractWeapon(name, damage, weight), MagicWeapon

@@ -17,6 +17,8 @@ import java.util.concurrent.TimeUnit
  *   The maximum health points of this enemy.
  * @param defense
  *   The defense of this enemy.
+ * @param attack
+ *   The attack of this enemy.
  * @param turnsQueue
  *   The queue with the characters waiting for their turn.
  *
@@ -75,5 +77,9 @@ class Enemy(
             /* delay = */ (this.weight / 10).toLong(),
             /* unit = */ TimeUnit.SECONDS
         )
+    }
+
+    override fun attackCharacter(target: GameCharacter) {
+        target.receiveAttack(this.attack)
     }
 }

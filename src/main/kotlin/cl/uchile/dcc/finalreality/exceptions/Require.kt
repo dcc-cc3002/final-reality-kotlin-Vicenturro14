@@ -47,5 +47,15 @@ object Require {
         } else {
             throw InvalidStatValueException("'$name' ($stat must be in range $range)")
         }
+
+        /**
+         * Checks if the stat is exactly the given value.
+         * If the condition is met, the stat value is returned.
+         */
+        infix fun exactly(value: Int) = if (stat == value) {
+            stat
+        } else {
+            throw InvalidStatValueException("'$name' ($stat must be exactly $value)")
+        }
     }
 }

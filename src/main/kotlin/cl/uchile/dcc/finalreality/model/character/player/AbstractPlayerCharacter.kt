@@ -45,6 +45,6 @@ abstract class AbstractPlayerCharacter(
     }
 
     override fun attackCharacter(target: GameCharacter) {
-        TODO("Not yet implemented")
+        target.receiveAttack(equippedWeapon.damage)
     }
 }

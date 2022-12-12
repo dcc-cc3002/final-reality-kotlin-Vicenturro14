@@ -7,6 +7,8 @@ import cl.uchile.dcc.finalreality.model.character.player.PlayerCharacter
  * A weapon can be equipped to a character controlled by the player.
  * @property weight
  *   The weight of the weapon.
+ * @property damage
+ *   The damage done by the weapon.
  * @author
  *   <a href="https://www.github.com/Vicenturro14">Vicenturro14</a>
  * @author
@@ -14,6 +16,7 @@ import cl.uchile.dcc.finalreality.model.character.player.PlayerCharacter
  */
 interface Weapon {
     val weight: Int
+    val damage: Int
 
     /**
      * Equip this weapon to an [Engineer][cl.uchile.dcc.finalreality.model.character.player.Engineer].
