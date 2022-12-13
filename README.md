@@ -85,3 +85,15 @@ la restricción de armas.
 - Se creó la excepción UnableToEquip, que será arrojada cuando un personaje intente equiparse un 
 arma no permitida para su clase de personaje.
 
+---
+
+Tarea 3
+===
+
+Controlador:
+-
+- En caso de que se intente crear un personaje con un arma que no se le puede equipar, se le equipará un arma estándar dependiendo de su clase:
+  - A los magos se les equipará un bastón estándar
+  - A los ingenieros se les equipará un arco estándar
+  - A los caballeros se les equipará una espada estándar
+  - A los ladrones se les equipará un cuchillo estándar

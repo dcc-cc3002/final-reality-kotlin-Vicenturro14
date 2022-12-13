@@ -285,10 +285,7 @@ class GameController {
             }
         }
     }
-    /* TODO:
-    - changeWeapon
-    - addToGame
-     */
+
     /**
      * Instructs a character to attack another character.
      *
