@@ -7,6 +7,7 @@ import cl.uchile.dcc.finalreality.model.character.Enemy
 import cl.uchile.dcc.finalreality.model.character.GameCharacter
 import cl.uchile.dcc.finalreality.model.character.player.Engineer
 import cl.uchile.dcc.finalreality.model.character.player.Knight
+import cl.uchile.dcc.finalreality.model.character.player.PlayerCharacter
 import cl.uchile.dcc.finalreality.model.character.player.Thief
 import cl.uchile.dcc.finalreality.model.character.player.mages.BlackMage
 import cl.uchile.dcc.finalreality.model.character.player.mages.WhiteMage
@@ -33,10 +34,10 @@ fun toPositiveNum(value: Int): Int{
 // Standard Values and Objects
 private const val STANDARD_PREFIX = "Standard"
 private const val STANDARD_NUM_VALUE = 50
-private val standardKnife = Knife("$STANDARD_PREFIX Knife", STANDARD_NUM_VALUE, STANDARD_NUM_VALUE)
-private val standardBow = Bow("$STANDARD_PREFIX Bow", STANDARD_NUM_VALUE, STANDARD_NUM_VALUE)
-private val standardSword = Sword("$STANDARD_PREFIX Sword", STANDARD_NUM_VALUE, STANDARD_NUM_VALUE)
-private val standardStaff = Staff("$STANDARD_PREFIX Staff", STANDARD_NUM_VALUE, STANDARD_NUM_VALUE, STANDARD_NUM_VALUE)
+private val standardKnife = Knife("$STANDARD_PREFIX knife", STANDARD_NUM_VALUE, STANDARD_NUM_VALUE)
+private val standardBow = Bow("$STANDARD_PREFIX bow", STANDARD_NUM_VALUE, STANDARD_NUM_VALUE)
+private val standardSword = Sword("$STANDARD_PREFIX sword", STANDARD_NUM_VALUE, STANDARD_NUM_VALUE)
+private val standardStaff = Staff("$STANDARD_PREFIX staff", STANDARD_NUM_VALUE, STANDARD_NUM_VALUE, STANDARD_NUM_VALUE)
 
 private const val PLAYER_CHARACTER_NUM = 4
 private const val ENEMIES_MAX = 8
@@ -218,7 +219,7 @@ class GameController {
         val character = try {
             BlackMage(name, maxHp, maxMp, defense, turnsQueue)
         } catch (e1: InvalidStatValueException) {
-            BlackMage(name, toPositiveNum(maxHp), maxMp, abs(defense), turnsQueue)
+            BlackMage(name, toPositiveNum(maxHp), abs(maxMp), abs(defense), turnsQueue)
         }
         try {
             character.equip(weapon)
@@ -249,7 +250,7 @@ class GameController {
         val character = try {
             WhiteMage(name, maxHp, maxMp, defense, turnsQueue)
         } catch (e1: InvalidStatValueException) {
-            WhiteMage(name, toPositiveNum(maxHp), maxMp, abs(defense), turnsQueue)
+            WhiteMage(name, toPositiveNum(maxHp), abs(maxMp), abs(defense), turnsQueue)
         }
         try {
             character.equip(weapon)
@@ -257,6 +258,17 @@ class GameController {
             character.equip(standardStaff)
         }
         return character
+    }
+
+    /**
+     * Changes the equipped weapon to a player character.
+     */
+    fun changeWeapon(character: PlayerCharacter, weapon: Weapon) {
+        try {
+            character.equip(weapon)
+        } catch (e: UnableToEquipException) {
+            return
+        }
     }
 
     /**
@@ -273,7 +285,10 @@ class GameController {
             }
         }
     }
-
+    /* TODO:
+    - changeWeapon
+    - addToGame
+     */
     /**
      * Instructs a character to attack another character.
      *
