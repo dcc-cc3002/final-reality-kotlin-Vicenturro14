@@ -8,44 +8,61 @@
 package cl.uchile.dcc.finalreality.model.character.player
 
 import cl.uchile.dcc.finalreality.model.character.GameCharacter
-import java.util.*
+import cl.uchile.dcc.finalreality.model.weapons.Weapon
+import java.util.Objects
 import java.util.concurrent.BlockingQueue
 
 /**
  * A `Knight` is a type of [PlayerCharacter] that can equip `Sword`s, `Axe`s and
  * `Knife`s.
  *
- * @param name        the character's name
- * @param maxHp       the character's maximum health points
- * @param defense     the character's defense
- * @param turnsQueue  the queue with the characters waiting for their turn
- * @constructor Creates a new Knight.
+ * @param name
+ *   The character's name
+ * @param maxHp
+ *   The character's maximum health points
+ * @param defense
+ *   The character's defense
+ * @param turnsQueue
+ *   The queue with the characters waiting for their turn
+ * @constructor
+ *   Creates a new Knight.
  *
- * @property currentHp The current HP of the character.
+ * @property currentHp
+ *   The current HP of the character.
  *
- * @author <a href="https://www.github.com/r8vnhill">R8V</a>
- * @author ~Your name~
+ * @author
+ *   <a href="https://www.github.com/Vicenturro14">Vicenturro14</a>
+ * @author
+ *   Vicente Olivares
  */
 class Knight(
-    name: String, maxHp: Int, defense: Int,
+    name: String,
+    maxHp: Int,
+    defense: Int,
     turnsQueue: BlockingQueue<GameCharacter>
 ) : AbstractPlayerCharacter(name, maxHp, defense, turnsQueue) {
     override fun equals(other: Any?) = when {
-        this === other                 -> true
-        other !is Knight               -> false
+        this === other -> true
+        other !is Knight -> false
         hashCode() != other.hashCode() -> false
-        name != other.name             -> false
-        maxHp != other.maxHp           -> false
-        defense != other.defense       -> false
-        else                           -> true
+        name != other.name -> false
+        maxHp != other.maxHp -> false
+        currentHp != other.currentHp -> false
+        defense != other.defense -> false
+        else -> true
     }
 
-    override fun hashCode() = Objects.hash(Knight::class, name, maxHp, defense)
+    override fun hashCode() = Objects.hash(this::class, name, maxHp, currentHp, defense)
 
-    override fun toString() = "Knight { " +
-      "name: '$name', " +
-      "maxHp: $maxHp, " +
-      "defense: $defense, " +
-      "currentHp: $currentHp " +
-      "}"
+    override fun toString() = "Knight(" +
+        "name = '$name', " +
+        "maxHp = $maxHp, " +
+        "currentHp = $currentHp, " +
+        "defense = $defense, " +
+        "equippedWeapon = ${this.equippedWeapon}" +
+        ")"
+
+    override fun equip(weapon: Weapon) {
+        weapon.equipToKnight(this)
+    }
 }

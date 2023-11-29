@@ -12,8 +12,8 @@ package cl.uchile.dcc.finalreality.exceptions
  * Object containing a series of methods to check if a condition is met.
  * If the condition is not met, an exception is thrown.
  *
- * @author <a href="https://github.com/r8vnhill">R8V</a>
- * @author ~Your name~
+ * @author <a href="https://github.com/Vicenturro14">Vicenturro14</a>
+ * @author Vicente Olivares
  */
 object Require {
 
@@ -46,6 +46,16 @@ object Require {
             stat
         } else {
             throw InvalidStatValueException("'$name' ($stat must be in range $range)")
+        }
+
+        /**
+         * Checks if the stat is exactly the given value.
+         * If the condition is met, the stat value is returned.
+         */
+        infix fun exactly(value: Int) = if (stat == value) {
+            stat
+        } else {
+            throw InvalidStatValueException("'$name' ($stat must be exactly $value)")
         }
     }
 }

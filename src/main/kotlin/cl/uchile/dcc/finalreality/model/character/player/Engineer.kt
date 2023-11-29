@@ -8,46 +8,62 @@
 package cl.uchile.dcc.finalreality.model.character.player
 
 import cl.uchile.dcc.finalreality.model.character.GameCharacter
+import cl.uchile.dcc.finalreality.model.weapons.Weapon
 import java.util.Objects
 import java.util.concurrent.BlockingQueue
 
 /**
- * An `Engineer` is a type of [PlayerCharacter] that can equip `Axe`s and
+ * An Engineer is a type of [PlayerCharacter] that can equip `Axe`s and
  * `Bow`s.
  *
- * @param name        the character's name
- * @param maxHp       the character's maximum health points
- * @param defense     the character's defense
- * @param turnsQueue  the queue with the characters waiting for their turn
- * @constructor Creates a new Engineer.
+ * @param name
+ *   The character's name
+ * @param maxHp
+ *   The character's maximum health points
+ * @param defense
+ *   The character's defense
+ * @param turnsQueue
+ *   The queue with the characters waiting for their turn
+ * @constructor
+ *   Creates a new Engineer.
  *
- * @property currentHp The current HP of the character.
+ * @property currentHp
+ *   The current HP of the character.
  *
- * @author <a href="https://www.github.com/r8vnhill">R8V</a>
- * @author ~Your name~
+ * @author
+ *   <a href="https://www.github.com/Vicenturro14">Vicenturro14</a>
+ * @author
+ *   Vicente Olivares
  */
 class Engineer(
-    name: String, maxHp: Int, defense: Int,
+    name: String,
+    maxHp: Int,
+    defense: Int,
     turnsQueue: BlockingQueue<GameCharacter>
-) :
-    AbstractPlayerCharacter(name, maxHp, defense, turnsQueue) {
+) : AbstractPlayerCharacter(name, maxHp, defense, turnsQueue) {
 
     override fun equals(other: Any?) = when {
-        this === other                 -> true
-        other !is Engineer             -> false
+        this === other -> true
+        other !is Engineer -> false
         hashCode() != other.hashCode() -> false
-        name != other.name             -> false
-        maxHp != other.maxHp           -> false
-        defense != other.defense       -> false
-        else                           -> true
+        name != other.name -> false
+        maxHp != other.maxHp -> false
+        currentHp != other.currentHp -> false
+        defense != other.defense -> false
+        else -> true
     }
-
     override fun hashCode() =
-        Objects.hash(Engineer::class, name, maxHp, defense)
+        Objects.hash(this::class, name, maxHp, currentHp, defense)
 
-    override fun toString() = "Engineer { " +
-      "name: '$name', " +
-      "maxHp: $maxHp, " +
-      "defense: $defense " +
-      "}"
+    override fun toString() = "Engineer(" +
+        "name = '$name', " +
+        "maxHp = $maxHp, " +
+        "currentHp = $currentHp, " +
+        "defense = $defense, " +
+        "equippedWeapon = ${this.equippedWeapon}" +
+        ")"
+
+    override fun equip(weapon: Weapon) {
+        weapon.equipToEngineer(this)
+    }
 }
